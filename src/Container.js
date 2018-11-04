@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GoogleApiComponent from './GoogleApiComponent.js'
+import ApiKey from './ApiKey'
 export class Container extends Component {
     render(){
         if (!this.props.loaded){
@@ -11,6 +12,6 @@ export class Container extends Component {
     }
 }
 export default GoogleApiComponent({
-    apiKey: 'AIzaSyD7z_bsfW9JU3xMhcUcIkuhZnzf_rqRZV4'
+    apiKey: ApiKey.deliver
 
 })(Container)
