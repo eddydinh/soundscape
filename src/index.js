@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Container from './Container.js'
+import Container from './containers/Container.js'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<Container />, document.getElementById('root'));
