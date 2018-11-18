@@ -32,20 +32,21 @@ const mapDispatchToProps = (dispatch) => {
 
 }
 class Map extends Component {
+    
+    initialRecenter = false;
 
-
-//When there is an update in Map.props
+    //When there is an update in Map.props
     componentDidUpdate(prevProps, prevState) {
 
 
         const {
             currentLocation
         } = this.props;
-//Initially load the map
+        //Initially load the map
         if (prevProps.google !== this.props.google) {
             this.loadMap();
         }
-//When user's location changes 
+        //When user's location changes 
         if (prevProps.currentLocation !== currentLocation) {
             this.recenterMap();
         }
@@ -53,29 +54,29 @@ class Map extends Component {
 
 
     }
-//After we have initially loaded the map, determine user's location    
+    //After we have initially loaded the map, determine user's location    
     componentDidMount() {
 
         const {
             OnDetectLocation
         } = this.props;
+        if (this.props.centerAroundCurrentLocation) {
+            if (navigator && navigator.geolocation) {
+                navigator.geolocation.watchPosition((pos) => {
+                    const coords = pos.coords;
+                    const userPos = {
+                        lat: coords.latitude,
+                        lng: coords.longitude
+                    };
 
-        if (navigator && navigator.geolocation) {
-            navigator.geolocation.watchPosition((pos) => {
-                const coords = pos.coords;
-                const userPos = {
-                    lat: coords.latitude,
-                    lng: coords.longitude
-                };
-                if (this.props.centerAroundCurrentLocation) {
-                    OnDetectLocation(userPos);//Event handling user's location
-                }
-            })
+                    OnDetectLocation(userPos); //Event handling user's location
+
+                })
+            }
         }
-
         this.loadMap();
     }
-//Load the map with default attributes got from props
+    //Load the map with default attributes got from props
     loadMap() {
         if (this.props && this.props.google) {
             const {
@@ -108,7 +109,7 @@ class Map extends Component {
         }
 
     }
-//Method to recenter Map when User's location is defined
+    //Method to recenter Map when User's location is defined
     recenterMap() {
         const map = this.map; //the map itsel
         const {
@@ -118,45 +119,52 @@ class Map extends Component {
         const {
             google
         } = this.props; //Google object
-        
+
         const maps = google.maps; //Maps object with its methods and classes
 
         if (map) {
             let center = new maps.LatLng(currentLocation.lat, currentLocation.lng);
-            map.panTo(center);
+            if(!this.initialRecenter){
+                map.panTo(center);
+                this.initialRecenter = true;
+            }
         }
     }
-//Render and passing down props to children components of Map
+    //Render and passing down props to children components of Map
     renderChildren() {
-        const {children} = this.props;
-        if(!children) return;
-        
-        return React.Children.map(children,c =>{
-            return React.cloneElement(c,{
-                map:this.map,
-                google:this.props.google,
+        const {
+            children
+        } = this.props;
+        if (!children) return;
+
+        return React.Children.map(children, c => {
+            return React.cloneElement(c, {
+                map: this.map,
+                google: this.props.google,
                 mapCenter: this.props.currentLocation
             });
         })
     }
-    
-//Return the map
+
+    //Return the map
     render() {
-        
-        
+
+
         const style = {
             width: '100%',
             height: '100%'
         }
-        
+
         return ( < div style = {
                 style
             }
             ref = 'map' >
-            Map goes here...
-            {this.renderChildren()}
+            Map goes here...{
+                this.renderChildren()
+            }
 
-            </div>
+            <
+            /div>
         )
 
     }

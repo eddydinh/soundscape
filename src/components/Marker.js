@@ -3,12 +3,16 @@ import React, {
 } from 'react'
 import PropTypes from 'prop-types';
 export default class Marker extends Component{
+   
+    marker = null;
     componentDidUpdate(prevProps){
+        //if there is a change in map or current user's position
         if((this.props.map !== prevProps.map)||(this.props.mapCenter !== prevProps.mapCenter)){
             this.renderMarker();
         }
     }
-    
+
+//If there is no marker => instantiate new marker / else => set new marker's position.
     renderMarker(){
         
         let{map,google,position,mapCenter,icon}=this.props;
@@ -16,7 +20,7 @@ export default class Marker extends Component{
         let pos = position||mapCenter;
         position= new google.maps.LatLng(pos.lat,pos.lng);
   
-        
+        if(this.marker == null){
         
         const pref = {
             map:map,
@@ -25,9 +29,14 @@ export default class Marker extends Component{
             icon:icon         
         };
         this.marker = new google.maps.Marker(pref);
+        }else{
+            this.marker.setPosition(position);
+        }
         
         
     }
+
+
     render(){
         return null;
     }
