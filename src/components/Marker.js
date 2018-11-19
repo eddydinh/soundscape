@@ -49,5 +49,5 @@ export default class Marker extends Component{
 Marker.propTypes ={
     position:PropTypes.object,
     map:PropTypes.object,
-    icon:PropTypes.object
+  
 }

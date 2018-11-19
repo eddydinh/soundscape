@@ -23,7 +23,7 @@ export default class Navbar extends Component {
         const formStyles={
     
 
-            height: "70%",
+            height: "50%",
             /* Full-height: remove this if you want "auto" height */
             width: "60%",
             /* Set the width of the sidebar */

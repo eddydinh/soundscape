@@ -17,14 +17,18 @@ export default class Form extends Component{
                     <input className="form-map-input" type={"text"} name="description" placeholder={"DESCRIPTION"}></input>
                     <br/>
                     
-                    <input readonly className="latlng-input" id="lat" name="lat" type="float" placeholder="LAT"></input>
+                    <input readOnly className="latlng-input" id="lat" name="lat" type="float" placeholder="LAT"></input>
 
-                    <input readonly className="latlng-input" id="lon" name="lon" type="float" placeholder="LNG"></input>
+                    <input readOnly className="latlng-input" id="lon" name="lon" type="float" placeholder="LNG"></input>
                    
                     
-                   <Button as={"btn"} placeholder={"AUTO"} nameofClass={"btn-form btn-auto"}></Button>
+                   <Button as={"btn"} onClick={()=>{
+                            alert("hey");
+                        }}placeholder={"AUTO"} nameofClass={"btn-form btn-auto"}></Button>
                    <br/>
                    <AddMediaButton nameofClass= {"btn-form btn-media"} placeholder= {"  ADD MEDIA"} imageSrc={require("../img/AddMediaIcon.png")}></AddMediaButton>
+                   <br/>
+                   <Button as={"btn"} placeholder={"ADD PIN"} nameofClass = {"btn-form btn-addPin"}></Button>
                 </form>
             </div>
         )

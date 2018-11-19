@@ -5,14 +5,14 @@ import '../css/button.css'
 export default class Button extends Component{
 
     render(){
-        const {imageSrc,onButtonClick,as,nameofClass,placeholder} = this.props;
+        const {imageSrc,onButtonClick,as,nameofClass,placeholder,onClick} = this.props;
    
         const styleImage ={
             width:'35px',
             height:'45px'
         }
         
-        if(as=="a"){
+        if(as==="a"){
    
         return (<a className="btn" onClick={onButtonClick}>
      
@@ -20,9 +20,10 @@ export default class Button extends Component{
         
         </a>);
         }
-        else if (as=="btn"){
+        else if (as==="btn"){
             
-            return (<button className={nameofClass}>{placeholder}</button>);
+            return (<input type="button" className={nameofClass} onClick={onClick} value={placeholder}></input>);
         }
+
     }
 }

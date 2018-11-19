@@ -76,9 +76,13 @@ class Map extends Component {
         }
         this.loadMap();
     }
+
+
     //Load the map with default attributes got from props
     loadMap() {
         if (this.props && this.props.google) {
+            
+            const evtNames = ['click'];
             const {
                 google
             } = this.props;
@@ -104,10 +108,29 @@ class Map extends Component {
             })
 
             this.map = new maps.Map(node, mapConfig);
+            
+            evtNames.forEach(e=>{
+                this.map.addListener(e,this.handleEvent(e));
+            })
 
-
+            
         }
 
+    }
+    handleEvent(evtName){
+        let timeout;
+        const handlerName = evtName;
+        return (e)=>{
+            if(timeout){
+                clearTimeout(timeout);
+                timeout = null;
+            }
+            timeout= setTimeout(()=>{
+                if(this.props[handlerName]){
+                    this.props[handlerName](this.props,this.map,e);
+                }
+            },0);
+        }
     }
     //Method to recenter Map when User's location is defined
     recenterMap() {

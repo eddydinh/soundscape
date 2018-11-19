@@ -54,9 +54,26 @@
 
 .btn-media {
     width: 70%;
-    margin:10px;
+    margin: 10px;
     height: 50px;
     font-weight: bolder;
-    
+
 }
 
+.btn-addPin {
+    margin-top: 10px;
+    height:50px;
+    font-weight: bolder;
+    background-color: #FF7964;
+    width: 70%;
+
+}
+
+.btn-addPin:hover {
+    background-color: #cc604f;
+}
+
+.btn-addPin:focus {
+    border-color: #FF7964;
+    box-shadow: inset 0 1px 1px #FF7964, 0 0 8px rgba(255, 0, 0, 0.6);
+}

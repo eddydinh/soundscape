@@ -13,7 +13,7 @@ import {
 import Navbar from '../components/Navbar'
 //pass state in reducer to props
 const mapStateToProps = state => {
-
+  
     return {
         selectedPlace: state.OnInfowinEventReducer.selectedPlace,
         activeMarker:state.OnInfowinEventReducer.activeMarker,
@@ -30,6 +30,7 @@ const mapDispatchToProps = (dispatch) => {
 
 }
 export class Container extends Component {
+    guidingMarker = null;
     render(){
         const style = {
             width:'100vw',
@@ -43,10 +44,11 @@ export class Container extends Component {
         return (
             <div style={style}>
                   <Navbar/>
-              <Map google ={this.props.google}>
+              <Map click={this.OnMapClick} google ={this.props.google}>
                
                
                 <Marker icon={{url:usericon,scaledSize: new this.props.google.maps.Size(45, 45)}} onInstantiate={this.props.OnInfoWindowEvent} infowincontent={{title: "YOU ARE HERE!"}}/>
+                
                 
                 <InfoWindow marker={this.props.activeMarker} visible = {this.props.showingInfoWindow}>
                     <div>
@@ -58,6 +60,37 @@ export class Container extends Component {
             </div>
         )
     }
+    
+    OnMapClick=(props,map,event)=>{
+        const pos = {
+            lat:event.latLng.lat(),
+            lng: event.latLng.lng()
+        };
+        const {google} = this.props;
+        
+        let position= new google.maps.LatLng(pos.lat,pos.lng);
+  
+        if(this.guidingMarker == null){
+        
+            const pref = {
+                map:map,
+                position:position,
+                animation:google.maps.Animation.DROP,
+                 
+            };
+            
+            this.guidingMarker = new google.maps.Marker(pref);
+            setTimeout(()=>{
+                this.guidingMarker.setAnimation(google.maps.Animation.BOUNCE);
+                },1000);
+    }else{
+        this.guidingMarker.setPosition(position);
+        setTimeout(()=>{
+            this.guidingMarker.setAnimation(google.maps.Animation.BOUNCE);
+        },1000);
+        this.guidingMarker.setAnimation(google.maps.Animation.DROP);
+    }
+}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiComponent({
     apiKey: ApiKey[0].key
