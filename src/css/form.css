@@ -1,4 +1,4 @@
-.form-map-input{        
+.form-map-input {
     background-color: #F4F4F4;
     color: #3f3f3f;
     border-radius: 20px;
@@ -6,12 +6,12 @@
     text-align: center;
     border: none;
     width: 70%;
-    height:50px;
-    margin-top:10px;
-    
+    height: 50px;
+    margin-top: 10px;
+
 }
 
-.latlng-input{        
+.latlng-input {
     background-color: #F4F4F4;
     color: #3f3f3f;
     border-radius: 20px;
@@ -19,12 +19,41 @@
     text-align: center;
     border: none;
     width: 20%;
-    height:50px;
-    margin-top:10px;
-    margin-left:5px;
-    
+    height: 50px;
+    margin-top: 10px;
+    margin-left: 5px;
+
 }
-.form{
+
+.form {
     text-align: center;
-    display:block;
+    display: block;
+}
+
+.form-div {
+
+
+    height: 50%;
+    /* Full-height: remove this if you want "auto" height */
+    width: 60%;
+    /* Set the width of the sidebar */
+    position: fixed;
+    margin: 0px 20%;
+    top: 10%;
+    /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1000;
+    /* Black */
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    overflow-y: visible;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@keyframes animatetop {
+    from {top: -1000px; opacity: 0}
+    to {top: 10%; opacity: 1}
 }

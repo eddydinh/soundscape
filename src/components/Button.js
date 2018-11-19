@@ -2,6 +2,7 @@ import React, {
     Component
 } from 'react'
 import '../css/button.css'
+import PropTypes from 'prop-types';
 export default class Button extends Component{
 
     render(){
@@ -22,7 +23,7 @@ export default class Button extends Component{
    
             return (<a className="btn" onClick={onButtonClick}>
 
-                <img src={imageSrc} style={styleImage} />
+                <img src={imageSrc} style={styleImage} alt={""} />
 
             </a>);
         }
@@ -30,9 +31,19 @@ export default class Button extends Component{
             
             return (<input type="button" className={nameofClass} onClick={onClick} value={placeholder}></input>);
         }
-        else if (as==="btn"){
-            return(  <button className={nameofClass}><img src={imageSrc} style={styleImageAddMedia}></img>{placeholder}</button>);
+        else if (as==="btn-media"){
+            return(   <button className={nameofClass} type="button" data-toggle="modal" data-target="#myModal"><img src={imageSrc} style={styleImageAddMedia} alt={""}></img>{placeholder}</button>);
+        }
+        else if (as==="btn-close"){
+            return(<button type="button" className={nameofClass} data-dismiss="modal">Close and Save</button>)
         }
 
     }
+}
+        
+Button.propTypes = {
+    as: PropTypes.string
+}
+Button.defaultProps = {
+    as: "btn-input"
 }

@@ -10,6 +10,7 @@ import {
     RecordLatLng
 } from '../actions'
 import Modal from "../components/Modal"
+import '../css/form.css';
 //pass state in reducer to props
 const mapStateToProps = state => {
   
@@ -32,7 +33,7 @@ export class Form extends Component{
     
     render(){
         const {lat,lng}= this.props;
-        return(<div>    
+        return(<div><div className="form-div">    
             <div className="form">
                
             
@@ -48,12 +49,14 @@ export class Form extends Component{
                     
                    <Button as={"btn-input"} onClick={this.AutoButtonClick}placeholder={"AUTO"} nameofClass={"btn-form btn-auto"}></Button>
                    <br/>
-                   <Button as={"btn"} nameofClass= {"btn-form btn-media"} placeholder= {"  ADD MEDIA"} imageSrc={require("../img/AddMediaIcon.png")}></Button>
+                   <Button as={"btn-media"} nameofClass= {"btn-form btn-media"} placeholder= {"  ADD MEDIA"} imageSrc={require("../img/AddMediaIcon.png")}></Button>
                    <br/>
                    <Button as={"btn-input"} placeholder={"ADD PIN"} nameofClass = {"btn-form btn-addPin"}></Button>
    
             </div>
                
+            </div>
+            <Modal as={"mediaModal"}></Modal>
             </div>
         )
     }

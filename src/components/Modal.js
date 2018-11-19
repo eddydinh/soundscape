@@ -1,60 +1,65 @@
 import React, {
     Component
 } from 'react'
+import '../css/modal.css'
 import '../css/button.css'
+import PropTypes from 'prop-types'
+import Button from './Button'
 export default class Modal extends Component{
-
+    constructor(props){
+        super(props);
+        this.state = {
+            inputFileName:'Upload your sound file (Maximum size: 1GB)'
+        }
+    }
     render(){
-     
-   
-   
-        
-        
-   
-        return (
-            
-            <div>
-                  
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        const {as} = this.props;   
+        if(as==="mediaModal"){
+            return(
+                
+        <div id="myModal" className="modal fade" role="dialog">
+        <div className="modal-dialog">
 
-         
-            <div class="modal-content">
-                <div class="modal-header">
+     
+            <div className="modal-content">
+                <div className="modal-header">
                     <h4>Media Uploader</h4>
                 </div>
 
-                <div class="modal-body">
+                <div className="modal-body">
 
 
-                    <div class="input-group mb-3">
-                        <div class="custom-file">
+                    <div className="input-group mb-3">
+                        <div className="custom-file">
 
-                            <input type="file" class="custom-file-input" id="mediaUploader" name="media"></input>
-                            <label class="custom-file-label" id="mediaLabel" for="mediaUploader">Upload a media for the artwork (Maximum size: 2MB)</label>
+                            <input type="file" onChange={this.OnFileValueChange} className="custom-file-input" id="mediaUploader" name="media"></input>
+                            <label className="custom-file-label" id="mediaLabel" >{this.state.inputFileName}</label>
                         </div>
                     </div>
-                    <label for="mediaSelection">Media type: </label>
-                    <select name="mediaSelection" id="mediaSelection">
-                        <option value="image">Image</option>
-                        <option value="video">Video</option>
-                        <option value="audio">Audio</option>
-                        
-  </select>
-
-
+                
 
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close and Save</button>
+                <div className="modal-footer">
+                    <Button as={"btn-close"} nameofClass={"btn-form btn-close"}>Close and Save</Button>
                 </div>
             </div>
 
         </div>
     </div>
-            </div>
-          
-        
-    )
+                
+            )
+        }
+    }
+    
+    OnFileValueChange= (e)=>{
+        this.setState({inputFileName: e.target.files[0].name});
+    
+
 }
+}
+Modal.propTypes = {
+    as: PropTypes.string
+}
+Modal.defaultProps = {
+    as: "mediaModal"
 }
