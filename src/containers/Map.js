@@ -19,7 +19,7 @@ import {
 const mapStateToProps = state => {
 
     return {
-        currentLocation: state.currentLocation,
+        currentLocation: state.SetCurrentPosReducer.currentLocation,
 
     }
 

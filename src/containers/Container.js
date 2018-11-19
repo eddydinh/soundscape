@@ -3,6 +3,32 @@ import GoogleApiComponent from '../components/GoogleApiHandlers/GoogleApiCompone
 import {ApiKey} from './ApiKey'
 import Map from './Map'
 import Marker from '../components/Marker'
+import InfoWindow from '../components/InfoWindow'
+import {
+    connect
+} from 'react-redux'
+import {
+    OnInfowinEventAction
+} from '../actions'
+
+//pass state in reducer to props
+const mapStateToProps = state => {
+
+    return {
+        selectedPlace: state.OnInfowinEventReducer.selectedPlace,
+        activeMarker:state.OnInfowinEventReducer.activeMarker,
+        showingInfoWindow:state.OnInfowinEventReducer.showingInfoWindow,
+
+    }
+
+}
+//Pass action to event handler
+const mapDispatchToProps = (dispatch) => {
+    return {
+        OnInfoWindowEvent: (props,marker,e) => dispatch(OnInfowinEventAction(props,marker,e))
+    }
+
+}
 export class Container extends Component {
     render(){
         const style = {
@@ -17,11 +43,17 @@ export class Container extends Component {
         return (
             <div style={style}><Map google ={this.props.google}>
                 <Marker icon={{url:usericon,scaledSize: new this.props.google.maps.Size(45, 45)}}/>
+                
+                <InfoWindow marker={this.props.activeMarker} visible = {this.props.showingInfoWindow}>
+                    <div>
+                        <h1>{this.props.selectedPlace.title}</h1>
+                    </div>
+                </InfoWindow>
             </Map></div>
         )
     }
 }
-export default GoogleApiComponent({
+export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiComponent({
     apiKey: ApiKey[0].key
 
-})(Container)
+})(Container))

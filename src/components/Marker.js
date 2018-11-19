@@ -22,15 +22,20 @@ export default class Marker extends Component{
   
         if(this.marker == null){
         
-        const pref = {
-            map:map,
-            position:position,
-            animation:google.maps.Animation.DROP,
-            icon:icon         
-        };
-        this.marker = new google.maps.Marker(pref);
+            const pref = {
+                map:map,
+                position:position,
+                animation:google.maps.Animation.DROP,
+                 
+            };
+            
+            this.marker = new google.maps.Marker(pref);
+            if(icon!=null) this.marker.setIcon(icon);
+            
         }else{
+            
             this.marker.setPosition(position);
+            
         }
         
         
