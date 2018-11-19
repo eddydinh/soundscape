@@ -1,24 +1,62 @@
-.btn{
-        
-            position:absolute;
-            margin:0px 49%;
-            top:20%;
-            cursor:pointer;
-     
+.btn {
+
+    position: absolute;
+    margin: 0px 49%;
+    top: 20%;
+    cursor: pointer;
+
 }
+
 @media only screen and (max-width: 1000px) {
-    .btn{
-        margin:0px 48%;
+    .btn {
+        margin: 0px 48%;
     }
 }
+
 @media only screen and (max-width: 700px) {
-    .btn{
-        margin:0px 47%;
+    .btn {
+        margin: 0px 47%;
     }
 }
+
 @media only screen and (max-width: 400px) {
-    .btn{
-        margin:0px 46%;
-        top:5%;
+    .btn {
+        margin: 0px 46%;
+        top: 5%;
     }
 }
+
+.btn-form {
+
+    background-color: #C9D8D5;
+    border-radius: 30px;
+    /*            border-color: #d3cfcf;*/
+    /*            box-shadow: inset 0 0 3px #d3cfcf;*/
+    border-width: 0.5px;
+    text-align: center;
+    color: black;
+    cursor: pointer;
+
+}
+
+.btn-auto {
+    width: 30%;
+    margin-left: 5px;
+    height: 50px;
+    font-weight: bolder;
+}
+
+.btn-form:hover {
+    background-color: #aebfbb;
+    color: black;
+
+}
+
+.btn-media {
+    width: 70%;
+    margin:10px;
+    height: 50px;
+    font-weight: bolder;
+    
+}
+

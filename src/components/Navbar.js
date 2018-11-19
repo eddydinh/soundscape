@@ -40,9 +40,9 @@ export default class Navbar extends Component {
             color: 'white'
         }
         if (!this.state.clicked) {
-            return ( <div style = {styles}> <Button imageSrc = {require('../img/addPinBtn.png')} onButtonClick = {this.OnClickEvent}/>   </div > )
+            return ( <div style = {styles}> <Button as= {"a"} imageSrc = {require('../img/addPinBtn.png')} onButtonClick = {this.OnClickEvent}/>   </div > )
         } else {
-            return (<div width={'100%'} height={'100%'}> <div style = {styles}> <Button imageSrc = {require('../img/addPinBtnClicked.png')} onButtonClick = {this.OnClickEvent}/> </div> <div style={formStyles}><Form></Form></div></div>)
+            return (<div width={'100%'} height={'100%'}> <div style = {styles}> <Button as= {"a"} imageSrc = {require('../img/addPinBtnClicked.png')} onButtonClick = {this.OnClickEvent}/> </div> <div style={formStyles}><Form></Form></div></div>)
         }
 
 

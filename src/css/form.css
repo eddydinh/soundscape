@@ -5,9 +5,23 @@
     box-shadow: 0 0 10px inset #c4c4c4;
     text-align: center;
     border: none;
-    width: 50%;
+    width: 70%;
     height:50px;
     margin-top:10px;
+    
+}
+
+.latlng-input{        
+    background-color: #F4F4F4;
+    color: #3f3f3f;
+    border-radius: 20px;
+    box-shadow: 0 0 10px inset #c4c4c4;
+    text-align: center;
+    border: none;
+    width: 20%;
+    height:50px;
+    margin-top:10px;
+    margin-left:5px;
     
 }
 .form{
