@@ -1,0 +1,16 @@
+.form-map-input{        
+    background-color: #F4F4F4;
+    color: #3f3f3f;
+    border-radius: 20px;
+    box-shadow: 0 0 10px inset #c4c4c4;
+    text-align: center;
+    border: none;
+    width: 50%;
+    height:50px;
+    margin-top:10px;
+    
+}
+.form{
+    text-align: center;
+    display:block;
+}

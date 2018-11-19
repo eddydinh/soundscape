@@ -1,0 +1,24 @@
+.btn{
+        
+            position:absolute;
+            margin:0px 49%;
+            top:20%;
+            cursor:pointer;
+     
+}
+@media only screen and (max-width: 1000px) {
+    .btn{
+        margin:0px 48%;
+    }
+}
+@media only screen and (max-width: 700px) {
+    .btn{
+        margin:0px 47%;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .btn{
+        margin:0px 46%;
+        top:5%;
+    }
+}

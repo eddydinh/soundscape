@@ -31,7 +31,7 @@ export default class Marker extends Component{
             
             this.marker = new google.maps.Marker(pref);
             if(icon!=null) this.marker.setIcon(icon);
-            onInstantiate(infowincontent,this.marker,true);
+            if(onInstantiate!=null)onInstantiate(infowincontent,this.marker,true);
         }else{
             
             this.marker.setPosition(position);

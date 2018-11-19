@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import GoogleApiComponent from '../components/GoogleApiHandlers/GoogleApiComponent'
 import {ApiKey} from './ApiKey'
 import Map from './Map'
@@ -10,7 +10,7 @@ import {
 import {
     OnInfowinEventAction
 } from '../actions'
-
+import Navbar from '../components/Navbar'
 //pass state in reducer to props
 const mapStateToProps = state => {
 
@@ -41,7 +41,9 @@ export class Container extends Component {
             return <div>Loading...</div>
         }
         return (
-            <div style={style}><Map google ={this.props.google}>
+            <div style={style}>
+                  <Navbar/>
+              <Map google ={this.props.google}>
                
                
                 <Marker icon={{url:usericon,scaledSize: new this.props.google.maps.Size(45, 45)}} onInstantiate={this.props.OnInfoWindowEvent} infowincontent={{title: "YOU ARE HERE!"}}/>
@@ -51,7 +53,9 @@ export class Container extends Component {
                         <h1>{this.props.selectedPlace.title}</h1>
                     </div>
                 </InfoWindow>
-            </Map></div>
+            </Map>
+        
+            </div>
         )
     }
 }
