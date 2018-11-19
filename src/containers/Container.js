@@ -42,7 +42,9 @@ export class Container extends Component {
         }
         return (
             <div style={style}><Map google ={this.props.google}>
-                <Marker icon={{url:usericon,scaledSize: new this.props.google.maps.Size(45, 45)}}/>
+               
+               
+                <Marker icon={{url:usericon,scaledSize: new this.props.google.maps.Size(45, 45)}} onInstantiate={this.props.OnInfoWindowEvent} infowincontent={{title: "YOU ARE HERE!"}}/>
                 
                 <InfoWindow marker={this.props.activeMarker} visible = {this.props.showingInfoWindow}>
                     <div>

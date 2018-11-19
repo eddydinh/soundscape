@@ -15,7 +15,7 @@ export default class Marker extends Component{
 //If there is no marker => instantiate new marker / else => set new marker's position.
     renderMarker(){
         
-        let{map,google,position,mapCenter,icon}=this.props;
+        let{map,google,position,mapCenter,icon,onInstantiate,infowincontent}=this.props;
      
         let pos = position||mapCenter;
         position= new google.maps.LatLng(pos.lat,pos.lng);
@@ -31,7 +31,7 @@ export default class Marker extends Component{
             
             this.marker = new google.maps.Marker(pref);
             if(icon!=null) this.marker.setIcon(icon);
-            
+            onInstantiate(infowincontent,this.marker,true);
         }else{
             
             this.marker.setPosition(position);
