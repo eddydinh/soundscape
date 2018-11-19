@@ -8,7 +8,7 @@ import {
     connect
 } from 'react-redux'
 import {
-    OnInfowinEventAction
+    OnInfowinEventAction,RecordLatLng
 } from '../actions'
 import Navbar from '../components/Navbar'
 //pass state in reducer to props
@@ -25,7 +25,8 @@ const mapStateToProps = state => {
 //Pass action to event handler
 const mapDispatchToProps = (dispatch) => {
     return {
-        OnInfoWindowEvent: (props,marker,e) => dispatch(OnInfowinEventAction(props,marker,e))
+        OnInfoWindowEvent: (props,marker,e) => dispatch(OnInfowinEventAction(props,marker,e)),
+        OnGuidingMarkerClick: (location) => dispatch(RecordLatLng(location))
     }
 
 }
@@ -61,15 +62,18 @@ export class Container extends Component {
         )
     }
     
-    OnMapClick=(props,map,event)=>{
+OnMapClick=(props,map,event)=>{
         const pos = {
             lat:event.latLng.lat(),
             lng: event.latLng.lng()
         };
-        const {google} = this.props;
+        const {google, OnGuidingMarkerClick} = this.props;
         
+        OnGuidingMarkerClick(pos);
         let position= new google.maps.LatLng(pos.lat,pos.lng);
-  
+        
+        
+    
         if(this.guidingMarker == null){
         
             const pref = {

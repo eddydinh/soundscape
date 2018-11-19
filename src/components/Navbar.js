@@ -2,7 +2,7 @@ import React, {
     Component
 } from 'react'
 import Button from './Button'
-import Form from './Form';
+import Form from '../containers/Form';
 export default class Navbar extends Component {
     constructor(props) {
         super(props);

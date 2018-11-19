@@ -4,11 +4,11 @@ import './index.css';
 import {Provider} from 'react-redux';
 import {createStore,combineReducers} from 'redux';
 import Container from './containers/Container';
-import {SetCurrentPosReducer,OnInfowinEventReducer} from './reducers';
+import {SetCurrentPosReducer,OnInfowinEventReducer,OnRecordLatLngReducer} from './reducers';
 import * as serviceWorker from './serviceWorker';
 
 
-const rootReducer = combineReducers({SetCurrentPosReducer,OnInfowinEventReducer});
+const rootReducer = combineReducers({SetCurrentPosReducer,OnInfowinEventReducer,OnRecordLatLngReducer});
 const store = createStore(rootReducer);
 
 ReactDOM.render(<Provider store ={store}>
