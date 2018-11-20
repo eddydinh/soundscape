@@ -1,13 +1,17 @@
 import React, {
     Component
 } from 'react'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import ReactDOMServer from 'react-dom/server'
+import $ from 'jquery'
+import '../css/infoWindow.css'
 
 export default class InfoWindow extends Component{
+    
     render(){
         return null;
     }
+    
     componentDidUpdate(prevProps,prevState){
         if (this.props.map!==prevProps.map){
             this.renderInfoWindow();
@@ -23,10 +27,11 @@ export default class InfoWindow extends Component{
     }
     
     renderInfoWindow(){
-        let {map,google,mapCenter}=this.props;
+        let {google}=this.props;
         const iw = this.infowindow = new google.maps.InfoWindow({
             content:''
         })
+         google.maps.event.addListener(iw, 'domready', this.styleWindow);
     }
     updateContent(){
         const content = this.renderChildren();
@@ -42,5 +47,75 @@ export default class InfoWindow extends Component{
     }
     closeWindow(){
         this.infowindow.close();
+    }
+    
+    styleWindow(){
+        let iwOuter = $('.gm-style-iw');
+
+
+        let iwBackground = iwOuter.prev();
+
+        // Removes background shadow DIV
+        iwBackground.children(':nth-child(2)').css({
+            'display': 'none'
+        });
+
+        // Removes white background DIV
+        iwBackground.children(':nth-child(4)').css({
+            'display': 'none'
+        });
+
+        // Changes the desired tail shadow color.
+        iwBackground.children(':nth-child(3)').find('div').children().css({
+            'box-shadow': '#FF7964 0px 5px 6px',
+            'background-color': "#FF7964",
+            'z-index': '1'
+        });
+
+        // Moves the infowindow 45px down.
+        iwOuter.parent().parent().css({
+            top: '5px'
+        });
+
+        // Moves the shadow of the arrow 45px down.
+        iwBackground.children(':nth-child(1)').attr('style', function(i, s) {
+            return s + 'top: 5px !important;'
+        });
+
+        // Moves the arrow 45px down.
+        iwBackground.children(':nth-child(3)').attr('style', function(i, s) {
+            return s + 'top: 5px !important;'
+        });
+
+        // Reference to the div that groups the close button elements.
+        let iwCloseBtn = iwOuter.next();
+
+        if ($(window).width() <= 700) {
+            
+            iwCloseBtn.css({
+                opacity: '1',
+                right: '30px',
+                top: '10px!important',
+                'border-radius': '13px',
+                'box-shadow': '-5px 7px 10px #1C2C35',
+                color: "#1C2C35"
+            });
+
+
+        } else {
+
+
+
+            // Apply the desired effect to the close button
+            iwCloseBtn.css({
+                opacity: '1',
+                right: '10px',
+                top: '5px',
+                'border-radius': '13px',
+                'box-shadow': '-5px 7px 10px #1C2C35',
+                color: "#1C2C35"
+            });
+
+        }
     }
 }

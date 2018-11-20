@@ -6,3 +6,8 @@
     #myModal {
         color: black;
     }
+
+    #mediaSelection {
+        z-index: 10000000000;
+        margin-left: 5px;
+    }

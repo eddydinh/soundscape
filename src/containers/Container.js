@@ -48,12 +48,13 @@ export class Container extends Component {
               <Map click={this.OnMapClick} google ={this.props.google}>
                
                
-                <Marker icon={{url:usericon,scaledSize: new this.props.google.maps.Size(45, 45)}} onInstantiate={this.props.OnInfoWindowEvent} infowincontent={{title: "YOU ARE HERE!"}}/>
+                <Marker icon={{url:usericon,scaledSize: new this.props.google.maps.Size(45, 45)}} onInstantiate={this.props.OnInfoWindowEvent} infowincontent={{title: "  YOU ARE HERE!"}}/>
+                
                 
                 
                 <InfoWindow marker={this.props.activeMarker} visible = {this.props.showingInfoWindow}>
                     <div>
-                        <h1>{this.props.selectedPlace.title}</h1>
+                       <h3>{this.props.selectedPlace.title}</h3>
                     </div>
                 </InfoWindow>
             </Map>
@@ -75,11 +76,15 @@ OnMapClick=(props,map,event)=>{
         
     
         if(this.guidingMarker == null){
-        
+             const usericon = require('../img/AddPinIcon.png')
+             const icon = {url:usericon,scaledSize: new this.props.google.maps.Size(45, 50)};
+                  
             const pref = {
                 map:map,
                 position:position,
-                animation:google.maps.Animation.DROP,
+                icon:icon,
+                animation:google.maps.Animation.DROP
+            
                  
             };
             

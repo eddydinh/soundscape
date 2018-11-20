@@ -30,7 +30,12 @@ export default class Marker extends Component{
             };
             
             this.marker = new google.maps.Marker(pref);
-            if(icon!=null) this.marker.setIcon(icon);
+            if(icon!=null) {this.marker.setIcon(icon);}
+            else{
+                  const usericon = require('../img/AddPinIcon.png')
+                  icon = {url:usericon,scaledSize: new this.props.google.maps.Size(45, 50)};
+                  this.marker.setIcon(icon);
+            }
             if(onInstantiate!=null)onInstantiate(infowincontent,this.marker,true);
         }else{
             

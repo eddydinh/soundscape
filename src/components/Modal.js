@@ -9,7 +9,7 @@ export default class Modal extends Component{
     constructor(props){
         super(props);
         this.state = {
-            inputFileName:'Upload your sound file (Maximum size: 1GB)'
+            inputFileName:'Upload your media file (Maximum size: 1GB)'
         }
     }
     render(){
@@ -36,7 +36,16 @@ export default class Modal extends Component{
                             <label className="custom-file-label" id="mediaLabel" >{this.state.inputFileName}</label>
                         </div>
                     </div>
-                
+                       
+                       
+                        <label>Media type:    </label>
+                    <select name="mediaSelection" id="mediaSelection">
+                        <option value="audio">Audio</option>
+                        <option value="image">Image</option>
+                        <option value="video">Video</option>
+                     
+                        
+                    </select>
 
                 </div>
                 <div className="modal-footer">
