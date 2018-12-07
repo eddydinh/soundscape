@@ -51,10 +51,9 @@ export class Container extends Component {
                 <Marker icon={{url:usericon,scaledSize: new this.props.google.maps.Size(45, 45)}} onInstantiate={this.props.OnInfoWindowEvent} infowincontent={{title: "  YOU ARE HERE!"}}/>
                 
                 
-                
                 <InfoWindow marker={this.props.activeMarker} visible = {this.props.showingInfoWindow}>
-                    <div>
-                       <h3>{this.props.selectedPlace.title}</h3>
+                    <div style={{margin:'10px', color:'#7C7C7C',display:'table'}}>
+                       <p style={{display:'table-cell', verticalAlign:'middle'}}>{this.props.selectedPlace.title}</p>
                     </div>
                 </InfoWindow>
             </Map>
