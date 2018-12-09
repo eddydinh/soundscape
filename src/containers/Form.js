@@ -68,10 +68,6 @@ export class Form extends Component{
        
         
     }
-
-    HandleUpload = () =>{
-        const data = new FormData()
-    }
     
     AutoButtonClick = ()=>{
         const {currentLocation,OnAutoButtonClick} = this.props;
@@ -94,7 +90,7 @@ export class Form extends Component{
         })
         .then(response => response.json())
         .then((data) => {
-           if(data === 'success') console.log('Upload Success');
+           if(data === 'success') console.log(data);
             else console.log("failed");
         })
         
@@ -104,10 +100,10 @@ export class Form extends Component{
     }
     
     componentDidUpdate(prevProps, prevState){
-        if(prevProps.lat != this.props.lat){
+        if(prevProps.lat !== this.props.lat){
             this.setState({lat: this.props.lat});
         }
-        if(prevProps.lng != this.props.lng){
+        if(prevProps.lng !== this.props.lng){
             this.setState({lng: this.props.lng});
         }
     }

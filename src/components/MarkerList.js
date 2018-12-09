@@ -14,7 +14,7 @@ export default class MarkerList extends Component {
         return <Marker 
         key ={i} 
         position={entry.latlng} 
-        infowincontent = {{title: entry.title, description:entry.description}} 
+        infowincontent = {entry.infowincontent} 
         onClick={handleMarkerClick}
         map={map}
         google={google}

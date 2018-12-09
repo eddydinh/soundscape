@@ -1,4 +1,11 @@
-import {CHANGE_CURRENT_LOCATION,ON_INFOWIN_EVENT,ON_RECORD_LATLNG} from './constants.js'
+import {
+        CHANGE_CURRENT_LOCATION,
+        ON_INFOWIN_EVENT,
+        ON_RECORD_LATLNG,
+        REQUEST_MARKERS_PENDING,
+        REQUEST_MARKERS_SUCCESS,
+        REQUEST_MARKERS_ERROR
+} from './constants.js'
 
 export const SetCurrentLocation = (location) => ({
     type: CHANGE_CURRENT_LOCATION,
@@ -18,4 +25,16 @@ export const RecordLatLng = (location) => ({
     lng: location.lng
     
 })
+
+export const requestMarkers = ()=>(dispatch) => {
+    
+    
+    dispatch({type: REQUEST_MARKERS_PENDING});
+    fetch('http://localhost:3000/database')
+        .then(response => response.json())
+        .then(data => dispatch({type:REQUEST_MARKERS_SUCCESS, payload:data}))
+        .catch(err=>dispatch({type:REQUEST_MARKERS_ERROR, payload:err}))
+    
+
+}
 

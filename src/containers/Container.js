@@ -9,7 +9,9 @@ import {
     connect
 } from 'react-redux'
 import {
-    OnInfowinEventAction,RecordLatLng
+    OnInfowinEventAction,
+    RecordLatLng,
+    requestMarkers
 } from '../actions'
 import Navbar from '../components/Navbar'
 //pass state in reducer to props
@@ -19,6 +21,10 @@ const mapStateToProps = state => {
         selectedPlace: state.OnInfowinEventReducer.selectedPlace,
         activeMarker:state.OnInfowinEventReducer.activeMarker,
         showingInfoWindow:state.OnInfowinEventReducer.showingInfoWindow,
+        markers: state.OnRequestMarkesReducer.markers,
+        isPending: state.OnRequestMarkesReducer.isPending,
+        error: state.OnRequestMarkesReducer.error,
+
 
     }
 
@@ -27,14 +33,19 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
     return {
         OnInfoWindowEvent: (props,marker,e) => dispatch(OnInfowinEventAction(props,marker,e)),
-        OnGuidingMarkerClick: (location) => dispatch(RecordLatLng(location))
+        OnGuidingMarkerClick: (location) => dispatch(RecordLatLng(location)),
+        OnRequestMarkers: () => dispatch(requestMarkers())
     }
 
 }
 export class Container extends Component {
     guidingMarker = null;
+    
+    componentDidMount(){
+        this.props.OnRequestMarkers();
+    }
     render(){
-        const{OnInfoWindowEvent}=this.props;
+        const{OnInfoWindowEvent,isPending}=this.props;
         const style = {
             width:'100vw',
             height: '100vh'
@@ -44,28 +55,10 @@ export class Container extends Component {
         if (!this.props.loaded){
             return <div>Loading...</div>
         }
-        const markers =[
-        {
-            id:'123',
-            title: 'Sound 1',
-            description : 'Description of the sound 1',
-            latlng:{lat: 49.87209070145184,lng:-119.48294539209593},
-            filename:`soundeffect1.mp3`,
-            filetype:'mp3'
-            
-        },
         
-          {
-            id:'124',
-            title: 'Sound 2',
-            description : 'Description of the sound 2',
-            latlng:{lat: 49.86877153448667,lng:-119.47601456400145},
-            filename:`soundeffect1.mp3`,
-            filetype:'mp3'
-            
-        }
-    ];
-        return (
+        return isPending ? 
+            <div>Loading...</div>:
+        (
             <div style={style}>
                   <Navbar/>
               <Map click={this.OnMapClick} google ={this.props.google}>
@@ -74,7 +67,7 @@ export class Container extends Component {
                 <Marker icon={{url:usericon,scaledSize: new this.props.google.maps.Size(45, 45)}} onInstantiate={OnInfoWindowEvent} infowincontent={{title: "  YOU ARE HERE!"}}/>
 
                 
-                <MarkerList markerArray={markers} handleMarkerClick = {this.props.OnInfoWindowEvent}></MarkerList>
+                <MarkerList markerArray={this.props.markers} handleMarkerClick = {this.props.OnInfoWindowEvent}></MarkerList>
                 
                 <InfoWindow marker={this.props.activeMarker} visible = {this.props.showingInfoWindow} onClose={OnInfoWindowEvent}>
                     <div style={{margin:'10px', color:'#7C7C7C',display:'table'}}>

@@ -1,4 +1,9 @@
-import {CHANGE_CURRENT_LOCATION,ON_INFOWIN_EVENT,ON_RECORD_LATLNG} from './constants.js'
+import {CHANGE_CURRENT_LOCATION,
+        ON_INFOWIN_EVENT,
+        ON_RECORD_LATLNG,
+        REQUEST_MARKERS_PENDING,
+        REQUEST_MARKERS_SUCCESS,
+        REQUEST_MARKERS_ERROR} from './constants.js'
 
 const initialStateUserPosition = {
     currentLocation: {
@@ -15,6 +20,13 @@ const initialStateInfoWinEvent = {
 const initialStateLatLng = {
     lat:'LAT',
     lng:'LNG',
+}
+
+const initialStateMarkers = {
+    isPending:false,
+    markers:[],
+    error: ''
+    
 }
 export const SetCurrentPosReducer= (state=initialStateUserPosition, action={}) =>{
     switch(action.type){
@@ -38,6 +50,19 @@ export const OnRecordLatLngReducer= (state=initialStateLatLng, action={}) =>{
     switch(action.type){
         case ON_RECORD_LATLNG:
             return Object.assign({},state,{lat:action.lat,lng:action.lng});
+        default:
+            return state;
+    }
+}
+
+export const OnRequestMarkesReducer = (state = initialStateMarkers, action={})=>{
+    switch(action.type){
+        case REQUEST_MARKERS_PENDING:
+            return Object.assign({},state,{isPending: true});
+        case REQUEST_MARKERS_SUCCESS:
+            return Object.assign({},state,{markers: action.payload, isPending: false}); 
+        case REQUEST_MARKERS_ERROR:
+            return Object.assign({},state,{error: action.payload, isPending: false});  
         default:
             return state;
     }
