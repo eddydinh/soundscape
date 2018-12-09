@@ -10,7 +10,7 @@ export default class MarkerList extends Component {
           const {markerArray,handleMarkerClick,map,google,mapCenter}= this.props;
    
     const markerComponent = markerArray.map((entry, i)=>{
-    
+      
         return <Marker 
         key ={i} 
         position={entry.latlng} 

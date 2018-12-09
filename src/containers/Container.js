@@ -67,7 +67,10 @@ export class Container extends Component {
                 <Marker icon={{url:usericon,scaledSize: new this.props.google.maps.Size(45, 45)}} onInstantiate={OnInfoWindowEvent} infowincontent={{title: "  YOU ARE HERE!"}}/>
 
                 
-                <MarkerList markerArray={this.props.markers} handleMarkerClick = {this.props.OnInfoWindowEvent}></MarkerList>
+                <MarkerList as={'remote'} markerArray={this.props.markers} handleMarkerClick = {this.props.OnInfoWindowEvent}></MarkerList>
+                
+             
+                
                 
                 <InfoWindow marker={this.props.activeMarker} visible = {this.props.showingInfoWindow} onClose={OnInfoWindowEvent}>
                     <div style={{margin:'10px', color:'#7C7C7C',display:'table'}}>
@@ -89,6 +92,7 @@ OnMapClick=(props,map,event)=>{
         const {google, OnGuidingMarkerClick} = this.props;
         
         OnGuidingMarkerClick(pos);
+        console.log("GuidingMarkerClicked");
         let position= new google.maps.LatLng(pos.lat,pos.lng);
         
         

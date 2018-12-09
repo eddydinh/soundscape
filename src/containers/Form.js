@@ -7,7 +7,8 @@ import {
     connect
 } from 'react-redux'
 import {
-    RecordLatLng
+    RecordLatLng,
+    requestMarkers
 } from '../actions'
 import Modal from "../components/Modal"
 import '../css/form.css';
@@ -24,7 +25,8 @@ const mapStateToProps = state => {
 //Pass action to event handler
 const mapDispatchToProps = (dispatch) => {
     return {
-        OnAutoButtonClick: (location) => dispatch(RecordLatLng(location))
+        OnAutoButtonClick: (location) => dispatch(RecordLatLng(location)),
+        OnRequestMarkers: () => dispatch(requestMarkers())
     }
 
 }
@@ -82,6 +84,10 @@ export class Form extends Component{
             formData.append(key,obj[key]);
            
         });
+        
+        for (var pair of formData.entries()) {
+    console.log(pair[0]+ ', ' + pair[1]); 
+}
       
         fetch('http://localhost:3000/addmarker',{
             method: 'post',
@@ -90,9 +96,12 @@ export class Form extends Component{
         })
         .then(response => response.json())
         .then((data) => {
-           if(data === 'success') console.log(data);
+           if(data === 'success'){console.log(data);
+                                 
+                                 }
             else console.log("failed");
         })
+        
         
        
         
@@ -101,12 +110,21 @@ export class Form extends Component{
     
     componentDidUpdate(prevProps, prevState){
         if(prevProps.lat !== this.props.lat){
+            console.log("Changelat");
             this.setState({lat: this.props.lat});
         }
         if(prevProps.lng !== this.props.lng){
+console.log("Changelng");
             this.setState({lng: this.props.lng});
         }
     }
+
+componentDidMount(){
+    if(this.props.lat!== "LAT" && this.props.lng !== "LNG"){
+     this.setState({lat: this.props.lat});
+     this.setState({lng: this.props.lng});
+    }
+}
     
     render(){
         const {lat,lng}= this.props;
