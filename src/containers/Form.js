@@ -30,16 +30,99 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export class Form extends Component{
+      constructor(props){
+        super(props);
+        this.state = {
+            title:'',
+            description:'',
+            lat:0,
+            lng:0,
+            file:null,
+            filetype:'wav',
+            filename:'Upload a sound file (Max: 1GB)'
+            
+        }
+    }
+    
+    HandleUploadedFile = (event)=>{
+
+        this.setState({file: event.target.files[0]});
+        this.setState({filename: event.target.files[0].name});
+        
+    }
+    
+    HandleFileType = (event)=>{
+        this.setState({filetype: event.target.value});
+       
+        
+    }
+    
+    HandleTitle = (event)=>{
+        this.setState({title: event.target.value});
+       
+        
+    }
+    
+    HandleDescription = (event)=>{
+        this.setState({description: event.target.value});
+       
+        
+    }
+
+    HandleUpload = () =>{
+        const data = new FormData()
+    }
+    
+    AutoButtonClick = ()=>{
+        const {currentLocation,OnAutoButtonClick} = this.props;
+        OnAutoButtonClick(currentLocation);
+    }
+    
+    HandleSubmit = () =>{
+       const formData = new FormData();
+       const obj = this.state;
+       Object.keys(obj).forEach(function(key) {
+
+            formData.append(key,obj[key]);
+           
+        });
+      
+        fetch('http://localhost:3000/addmarker',{
+            method: 'post',
+            body:formData
+            
+        })
+        .then(response => response.json())
+        .then((data) => {
+           if(data === 'success') console.log('Upload Success');
+            else console.log("failed");
+        })
+        
+       
+        
+        
+    }
+    
+    componentDidUpdate(prevProps, prevState){
+        if(prevProps.lat != this.props.lat){
+            this.setState({lat: this.props.lat});
+        }
+        if(prevProps.lng != this.props.lng){
+            this.setState({lng: this.props.lng});
+        }
+    }
     
     render(){
         const {lat,lng}= this.props;
-        return(<div><div className="form-div">    
+        return(
+            
+            <div><div className="form-div">    
             <div className="form">
                
             
-                    <input className="form-map-input" type={"text"} name="title" placeholder={"TITLE"}></input>
+                    <input className="form-map-input" type={"text"} name="title" placeholder={"TITLE"} onChange={this.HandleTitle}></input>
                     <br/>  
-                    <input className="form-map-input" type={"text"} name="description" placeholder={"DESCRIPTION"}></input>
+                    <input className="form-map-input" type={"text"} name="description" placeholder={"DESCRIPTION"} onChange={this.HandleDescription}></input>
                     <br/>
                     
                     <input readOnly className="latlng-input" id="lat" name="lat" type="float" placeholder="LAT" value={lat}></input>
@@ -47,22 +130,23 @@ export class Form extends Component{
                     <input readOnly className="latlng-input" id="lng" name="lng" type="float" placeholder="LNG" value={lng}></input>
                    
                     
-                   <Button as={"btn-input"} onClick={this.AutoButtonClick}placeholder={"AUTO"} nameofClass={"btn-form btn-auto"}></Button>
+                   <Button as={"btn-input"} onClick={this.AutoButtonClick} placeholder={"AUTO"} nameofClass={"btn-form btn-auto"}></Button>
                    <br/>
                    <Button as={"btn-media"} nameofClass= {"btn-form btn-media"} placeholder= {"  ADD MEDIA"} imageSrc={require("../img/AddMediaIcon.png")}></Button>
                    <br/>
-                   <Button as={"btn-input"} placeholder={"ADD PIN"} nameofClass = {"btn-form btn-addPin"}></Button>
+                   <Button as={"btn-input"} placeholder={"ADD PIN"} nameofClass = {"btn-form btn-addPin"} onClick={this.HandleSubmit}></Button>
    
             </div>
                
             </div>
-            <Modal as={"mediaModal"}></Modal>
+            <Modal as={"mediaModal"} handleUploadedFile ={this.HandleUploadedFile} inputFileName ={this.state.filename} handleFileType = {this.HandleFileType}></Modal>
             </div>
         )
     }
-    AutoButtonClick = ()=>{
-        const {currentLocation,OnAutoButtonClick} = this.props;
-        OnAutoButtonClick(currentLocation);
-    }
+    
+
+    
+    
+
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Form);

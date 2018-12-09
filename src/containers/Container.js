@@ -4,6 +4,7 @@ import {ApiKey} from './ApiKey'
 import Map from './Map'
 import Marker from '../components/Marker'
 import InfoWindow from '../components/InfoWindow'
+import MarkerList from '../components/MarkerList'
 import {
     connect
 } from 'react-redux'
@@ -33,6 +34,7 @@ const mapDispatchToProps = (dispatch) => {
 export class Container extends Component {
     guidingMarker = null;
     render(){
+        const{OnInfoWindowEvent}=this.props;
         const style = {
             width:'100vw',
             height: '100vh'
@@ -42,18 +44,42 @@ export class Container extends Component {
         if (!this.props.loaded){
             return <div>Loading...</div>
         }
+        const markers =[
+        {
+            id:'123',
+            title: 'Sound 1',
+            description : 'Description of the sound 1',
+            latlng:{lat: 49.87219002998007,lng:-119.48283236669567},
+            filename:`soundeffect1.mp3`,
+            filetype:'mp3'
+            
+        },
+        
+          {
+            id:'124',
+            title: 'Sound 2',
+            description : 'Description of the sound 2',
+            latlng:{lat: 49.87022622111901,lng:-119.47962015357234},
+            filename:`soundeffect1.mp3`,
+            filetype:'mp3'
+            
+        }
+    ]
         return (
             <div style={style}>
                   <Navbar/>
               <Map click={this.OnMapClick} google ={this.props.google}>
                
                
-                <Marker icon={{url:usericon,scaledSize: new this.props.google.maps.Size(45, 45)}} onInstantiate={this.props.OnInfoWindowEvent} infowincontent={{title: "  YOU ARE HERE!"}}/>
+                <Marker icon={{url:usericon,scaledSize: new this.props.google.maps.Size(45, 45)}} onInstantiate={OnInfoWindowEvent} infowincontent={{title: "  YOU ARE HERE!"}}/>
+                <Marker  position = {{lat: 49.87219002998007,lng:-119.48283236669567}} infowincontent ={{title:'sadfasdfsf', description: 'aadsfadsfadsfds'}} onClick={OnInfoWindowEvent}></Marker>
                 
+                <MarkerList markers={markers} handleMarkerClick = {this.props.OnInfoWindowEvent}></MarkerList>
                 
-                <InfoWindow marker={this.props.activeMarker} visible = {this.props.showingInfoWindow}>
+                <InfoWindow marker={this.props.activeMarker} visible = {this.props.showingInfoWindow} onClose={OnInfoWindowEvent}>
                     <div style={{margin:'10px', color:'#7C7C7C',display:'table'}}>
-                       <p style={{display:'table-cell', verticalAlign:'middle'}}>{this.props.selectedPlace.title}</p>
+                       <p style={{color:'black', fontWeight:'bold'}}>{this.props.selectedPlace.title}</p>
+                       <p>{this.props.selectedPlace.description}</p>
                     </div>
                 </InfoWindow>
             </Map>

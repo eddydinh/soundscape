@@ -20,6 +20,7 @@ export default class InfoWindow extends Component{
             this.updateContent();
         }
         if ((this.props.visible!== prevProps.visible)||(this.props.marker!== prevProps.marker)){
+
             this.props.visible?
                 this.openWindow():
                 this.closeWindow();
@@ -27,12 +28,16 @@ export default class InfoWindow extends Component{
     }
     
     renderInfoWindow(){
-        let {google}=this.props;
+        let {google,onClose,marker}=this.props;
         const iw = this.infowindow = new google.maps.InfoWindow({
             content:''
         })
          google.maps.event.addListener(iw, 'domready', this.styleWindow);
+        google.maps.event.addListener(iw,'closeclick',function(){
+            onClose({},marker,false);
+        });
     }
+    
     updateContent(){
         const content = this.renderChildren();
         this.infowindow.setContent(content);
@@ -48,6 +53,7 @@ export default class InfoWindow extends Component{
     closeWindow(){
         this.infowindow.close();
     }
+    
     
     styleWindow(){
         let iwOuter = $('.gm-style-iw');
