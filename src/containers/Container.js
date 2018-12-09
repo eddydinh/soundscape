@@ -49,7 +49,7 @@ export class Container extends Component {
             id:'123',
             title: 'Sound 1',
             description : 'Description of the sound 1',
-            latlng:{lat: 49.87219002998007,lng:-119.48283236669567},
+            latlng:{lat: 49.87209070145184,lng:-119.48294539209593},
             filename:`soundeffect1.mp3`,
             filetype:'mp3'
             
@@ -59,12 +59,12 @@ export class Container extends Component {
             id:'124',
             title: 'Sound 2',
             description : 'Description of the sound 2',
-            latlng:{lat: 49.87022622111901,lng:-119.47962015357234},
+            latlng:{lat: 49.86877153448667,lng:-119.47601456400145},
             filename:`soundeffect1.mp3`,
             filetype:'mp3'
             
         }
-    ]
+    ];
         return (
             <div style={style}>
                   <Navbar/>
@@ -72,9 +72,9 @@ export class Container extends Component {
                
                
                 <Marker icon={{url:usericon,scaledSize: new this.props.google.maps.Size(45, 45)}} onInstantiate={OnInfoWindowEvent} infowincontent={{title: "  YOU ARE HERE!"}}/>
-                <Marker  position = {{lat: 49.87219002998007,lng:-119.48283236669567}} infowincontent ={{title:'sadfasdfsf', description: 'aadsfadsfadsfds'}} onClick={OnInfoWindowEvent}></Marker>
+
                 
-                <MarkerList markers={markers} handleMarkerClick = {this.props.OnInfoWindowEvent}></MarkerList>
+                <MarkerList markerArray={markers} handleMarkerClick = {this.props.OnInfoWindowEvent}></MarkerList>
                 
                 <InfoWindow marker={this.props.activeMarker} visible = {this.props.showingInfoWindow} onClose={OnInfoWindowEvent}>
                     <div style={{margin:'10px', color:'#7C7C7C',display:'table'}}>

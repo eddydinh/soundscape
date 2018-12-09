@@ -7,9 +7,19 @@ export default class MarkerList extends Component {
   
     
     render(){
-          const {markers,handleMarkerClick}= this.props;
-    const markerComponent = markers.map((entry, i)=>{
-        return <Marker key ={i.toString()} position = {markers[i].latlng} infowincontent ={{title:markers[i].title, description: markers[i].description}} onClick={handleMarkerClick}></Marker>
+          const {markerArray,handleMarkerClick,map,google,mapCenter}= this.props;
+   
+    const markerComponent = markerArray.map((entry, i)=>{
+    
+        return <Marker 
+        key ={i} 
+        position={entry.latlng} 
+        infowincontent = {{title: entry.title, description:entry.description}} 
+        onClick={handleMarkerClick}
+        map={map}
+        google={google}
+        mapCenter={mapCenter}
+        ></Marker>
     })
     return(
         <div>
