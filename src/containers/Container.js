@@ -25,7 +25,8 @@ const mapStateToProps = state => {
         markers: state.OnRequestMarkesReducer.markers,
         isPending: state.OnRequestMarkesReducer.isPending,
         error: state.OnRequestMarkesReducer.error,
-        currentLocation: state.SetCurrentPosReducer.currentLocation
+        currentLocation: state.SetCurrentPosReducer.currentLocation,
+    
 
 
     }
@@ -55,6 +56,7 @@ export class Container extends Component {
     }
     render(){
         const{OnInfoWindowEvent,isPending}=this.props;
+
         const style = {
             width:'100vw',
             height: '100vh'
@@ -64,10 +66,8 @@ export class Container extends Component {
         if (!this.props.loaded){
             return <div>Loading...</div>
         }
-        
-        return isPending ? 
-            <div>Loading...</div>:
-        (
+       
+        return (
             <div style={style}>
                   <Navbar/>
               <Map click={this.OnMapClick} google ={this.props.google}>
@@ -77,6 +77,7 @@ export class Container extends Component {
 
                 
                 <MarkerList as={'remote'} markerArray={this.props.markers} handleMarkerClick = {this.props.OnInfoWindowEvent}></MarkerList>
+                
                 
                 
                 
@@ -95,7 +96,7 @@ export class Container extends Component {
 CheckMarkers = () =>{
     const {markers, currentLocation} = this.props;
     for(let i=0; i< markers.length; i ++){
-        if(this.getDistance(markers[i].latlng, currentLocation) < 100){
+        if(this.getDistance({lat: markers[i].lat, lng:markers[i].lng}, currentLocation) < 100){
             setTimeout(()=>{
                 
                 this.props.PlayMarkerAudio(markers[i].filename)
@@ -130,9 +131,10 @@ OnMapClick=(props,map,event)=>{
             lat:event.latLng.lat(),
             lng: event.latLng.lng()
         };
-        const {google, OnGuidingMarkerClick} = this.props;
+        const {google, OnGuidingMarkerClick,OnInfoWindowEvent} = this.props;
         
         OnGuidingMarkerClick(pos);
+        OnInfoWindowEvent({},null,false)
         let position= new google.maps.LatLng(pos.lat,pos.lng);
         
         

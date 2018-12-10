@@ -186,8 +186,7 @@ class Map extends Component {
                 this.renderChildren()
             }
 
-            <
-            /div>
+            </div>
         )
 
     }

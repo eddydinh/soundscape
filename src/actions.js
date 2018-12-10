@@ -5,7 +5,8 @@ import {
         REQUEST_MARKERS_PENDING,
         REQUEST_MARKERS_SUCCESS,
         REQUEST_MARKERS_ERROR,
-        PASS_FILE_NAME
+        PASS_FILE_NAME,
+        ADD_LOCAL_MARKER
 } from './constants.js'
 
 export const SetCurrentLocation = (location) => ({
@@ -30,6 +31,12 @@ export const RecordLatLng = (location) => ({
 export const PassFileName = (filename) => ({
     type: PASS_FILE_NAME,
     payload1: filename
+    
+})
+
+export const AddLocalMarker = (marker) => ({
+    type: ADD_LOCAL_MARKER,
+    payload1: marker
     
 })
 

@@ -19,7 +19,7 @@ const mapStateToProps = state => {
         lat: state.OnRecordLatLngReducer.lat,
         lng: state.OnRecordLatLngReducer.lng,
         currentLocation: state.SetCurrentPosReducer.currentLocation,
-        markers: state.OnRequestMarkesReducer.markers,
+       
     }
 
 }
@@ -27,7 +27,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
     return {
         OnAutoButtonClick: (location) => dispatch(RecordLatLng(location)),
-        OnRequestMarkers: () => dispatch(requestMarkers())
+        OnRequestMarkers: () => dispatch(requestMarkers()),
+       
     }
 
 }
@@ -83,12 +84,14 @@ export class Form extends Component{
        Object.keys(obj).forEach(function(key) {
 
             formData.append(key,obj[key]);
+          
            
         });
-        
+
         for (var pair of formData.entries()) {
-    console.log(pair[0]+ ', ' + pair[1]); 
-}
+            console.log(pair[0]+ ', ' + pair[1]); 
+        }
+
       
         fetch('http://localhost:3000/addmarker',{
             method: 'post',
@@ -97,8 +100,9 @@ export class Form extends Component{
         })
         .then(response => response.json())
         .then((data) => {
-           if(data === 'success'){console.log(data);
-                                 
+           if(data === 'success'){
+               console.log(data);
+                this.props.OnRequestMarkers();
                                  }
             else console.log("failed");
         })

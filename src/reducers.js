@@ -4,7 +4,8 @@ import {CHANGE_CURRENT_LOCATION,
         REQUEST_MARKERS_PENDING,
         REQUEST_MARKERS_SUCCESS,
         REQUEST_MARKERS_ERROR,
-        PASS_FILE_NAME
+        PASS_FILE_NAME,
+        ADD_LOCAL_MARKER
        } from './constants.js'
 
 const initialStateUserPosition = {
@@ -33,6 +34,11 @@ const initialStateMarkers = {
 
 const initialFileName = {
     filename:''
+    
+}
+
+const initialLocalMarkers = {
+    localmarkers:[]
     
 }
 export const SetCurrentPosReducer= (state=initialStateUserPosition, action={}) =>{
@@ -83,3 +89,4 @@ export const PassFileNameReducer= (state=initialFileName, action={}) =>{
             return state;
     }
 }
+
