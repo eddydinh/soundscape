@@ -64,7 +64,7 @@ export class Navbar extends Component {
             </div>
             
             <div>
-            <Form visible = {clicked}></Form>
+            <Form closeForm={this.OnClickEvent} visible = {clicked}></Form>
             
             </div>
             

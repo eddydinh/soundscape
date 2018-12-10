@@ -78,7 +78,9 @@ export class Form extends Component{
         OnAutoButtonClick(currentLocation);
     }
     
+    
     HandleSubmit = () =>{
+    const {closeForm} = this.props;
        const formData = new FormData();
        const obj = this.state;
        Object.keys(obj).forEach(function(key) {
@@ -88,9 +90,9 @@ export class Form extends Component{
            
         });
 
-        for (var pair of formData.entries()) {
-            console.log(pair[0]+ ', ' + pair[1]); 
-        }
+//        for (var pair of formData.entries()) {
+//            console.log(pair[0]+ ', ' + pair[1]); 
+//        }
 
       
         fetch('http://localhost:3000/addmarker',{
@@ -107,6 +109,7 @@ export class Form extends Component{
             else console.log("failed");
         })
         
+        closeForm();
         
        
         
