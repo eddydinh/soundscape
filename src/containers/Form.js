@@ -127,8 +127,10 @@ componentDidMount(){
 }
     
     render(){
-        const {lat,lng}= this.props;
-        return(
+        const {lat,lng,visible}= this.props;
+        return  !visible ? null :
+        
+        (
             
             <div><div className="form-div">    
             <div className="form">

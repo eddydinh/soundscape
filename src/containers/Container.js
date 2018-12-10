@@ -11,9 +11,10 @@ import {
 import {
     OnInfowinEventAction,
     RecordLatLng,
-    requestMarkers
+    requestMarkers,
+    PassFileName
 } from '../actions'
-import Navbar from '../components/Navbar'
+import Navbar from './Navbar'
 //pass state in reducer to props
 const mapStateToProps = state => {
   
@@ -24,6 +25,7 @@ const mapStateToProps = state => {
         markers: state.OnRequestMarkesReducer.markers,
         isPending: state.OnRequestMarkesReducer.isPending,
         error: state.OnRequestMarkesReducer.error,
+        currentLocation: state.SetCurrentPosReducer.currentLocation
 
 
     }
@@ -34,7 +36,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         OnInfoWindowEvent: (props,marker,e) => dispatch(OnInfowinEventAction(props,marker,e)),
         OnGuidingMarkerClick: (location) => dispatch(RecordLatLng(location)),
-        OnRequestMarkers: () => dispatch(requestMarkers())
+        OnRequestMarkers: () => dispatch(requestMarkers()),
+        PlayMarkerAudio: (filename)=>dispatch(PassFileName(filename))
     }
 
 }
@@ -43,6 +46,12 @@ export class Container extends Component {
     
     componentDidMount(){
         this.props.OnRequestMarkers();
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        if((prevProps.currentLocation !== this.props.currentLocation)|| (prevProps.markers !== this.props.markers)){
+            this.CheckMarkers();
+        }
     }
     render(){
         const{OnInfoWindowEvent,isPending}=this.props;
@@ -82,7 +91,40 @@ export class Container extends Component {
             </div>
         )
     }
-    
+
+CheckMarkers = () =>{
+    const {markers, currentLocation} = this.props;
+    for(let i=0; i< markers.length; i ++){
+        if(this.getDistance(markers[i].latlng, currentLocation) < 100){
+            setTimeout(()=>{
+                
+                this.props.PlayMarkerAudio(markers[i].filename)
+                           
+                           
+                }, 1000);
+        }
+    }
+}
+  
+  //Convert from Degree to rad
+        rad = (x)=> {
+            return x * Math.PI / 180;
+        };
+
+//Function to calculate distance between two points on the map
+getDistance = (p1, p2) => {
+            var R = 6378137; // Earth’s mean radius in meter
+            var dLat = this.rad(p2.lat - p1.lat);
+            var dLong = this.rad(p2.lng - p1.lng);
+            var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(this.rad(p1.lat)) * Math.cos(this.rad(p2.lat)) *
+                Math.sin(dLong / 2) * Math.sin(dLong / 2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            var d = R * c;
+            //console.log("Distance between p1 and p2: " + d);
+            return d; // returns the distance in meter
+        };
+
 OnMapClick=(props,map,event)=>{
         const pos = {
             lat:event.latLng.lat(),

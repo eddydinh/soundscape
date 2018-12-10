@@ -5,11 +5,19 @@ import {Provider} from 'react-redux';
 import {createStore,combineReducers,applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk'
 import Container from './containers/Container';
-import {SetCurrentPosReducer,OnInfowinEventReducer,OnRecordLatLngReducer,OnRequestMarkesReducer} from './reducers';
+import {SetCurrentPosReducer,
+        OnInfowinEventReducer,
+        OnRecordLatLngReducer,
+        OnRequestMarkesReducer,
+        PassFileNameReducer} from './reducers';
 import * as serviceWorker from './serviceWorker';
 
 
-const rootReducer = combineReducers({SetCurrentPosReducer,OnInfowinEventReducer,OnRecordLatLngReducer,OnRequestMarkesReducer});
+const rootReducer = combineReducers({SetCurrentPosReducer,
+                                     OnInfowinEventReducer,
+                                     OnRecordLatLngReducer,
+                                     OnRequestMarkesReducer,
+                                     PassFileNameReducer});
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 ReactDOM.render(<Provider store ={store}>

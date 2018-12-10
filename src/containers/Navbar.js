@@ -1,15 +1,17 @@
 import React, {
     Component
 } from 'react'
-import Button from './Button'
-import Form from '../containers/Form';
+import Button from '../components/Button'
+import Form from './Form';
 import AudioPlayer from '../components/AudioPlayer'
 export default class Navbar extends Component {
+  
     constructor(props) {
         super(props);
         this.state = {
             clicked: false
         }
+        this.btnImg = require('../img/addPinBtn.png');
     }
     render() {
 
@@ -22,28 +24,23 @@ export default class Navbar extends Component {
             boxShadow: '0 0 25px #888888'
         }
       
-        if (!this.state.clicked) {
-            return ( 
-                
-        <div style = {navStyles}> 
-            <Button as= {"a"} imageSrc = {require('../img/addPinBtn.png')} onButtonClick = {this.OnClickEvent}/>   
-            <AudioPlayer></AudioPlayer>
-            </div > )
-        } else {
-            return (<div width={'100%'} height={'100%'}> <div style = {navStyles}> 
-            <Button as= {"a"} imageSrc = {require('../img/addPinBtnClicked.png')} onButtonClick = {this.OnClickEvent}/> 
+        const {clicked} = this.state;
+      
+   
+      return (<div width={'100%'} height={'100%'}> <div style = {navStyles}> 
+            <Button as= {"a"} imageSrc = {this.btnImg} onButtonClick = {this.OnClickEvent}/> 
             
             <AudioPlayer></AudioPlayer>
             
             </div>
             
             <div>
-            <Form></Form>
+            <Form visible = {clicked}></Form>
             
             </div>
             
             </div>)
-        }
+        
 
 
     }
@@ -51,5 +48,15 @@ export default class Navbar extends Component {
         this.setState({
             clicked: !this.state.clicked
         });
+        if(!this.state.clicked){
+        
+                this.btnImg = require('../img/addPinBtnClicked.png');
+           
+           
+        }else{
+ 
+                this.btnImg = require('../img/addPinBtn.png');
+           
+        }
     }
 }

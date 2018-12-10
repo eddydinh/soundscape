@@ -4,7 +4,8 @@ import {
         ON_RECORD_LATLNG,
         REQUEST_MARKERS_PENDING,
         REQUEST_MARKERS_SUCCESS,
-        REQUEST_MARKERS_ERROR
+        REQUEST_MARKERS_ERROR,
+        PASS_FILE_NAME
 } from './constants.js'
 
 export const SetCurrentLocation = (location) => ({
@@ -23,6 +24,12 @@ export const RecordLatLng = (location) => ({
     type: ON_RECORD_LATLNG,
     lat: location.lat,
     lng: location.lng
+    
+})
+
+export const PassFileName = (filename) => ({
+    type: PASS_FILE_NAME,
+    payload1: filename
     
 })
 

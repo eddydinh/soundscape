@@ -3,7 +3,9 @@ import {CHANGE_CURRENT_LOCATION,
         ON_RECORD_LATLNG,
         REQUEST_MARKERS_PENDING,
         REQUEST_MARKERS_SUCCESS,
-        REQUEST_MARKERS_ERROR} from './constants.js'
+        REQUEST_MARKERS_ERROR,
+        PASS_FILE_NAME
+       } from './constants.js'
 
 const initialStateUserPosition = {
     currentLocation: {
@@ -26,6 +28,11 @@ const initialStateMarkers = {
     isPending:false,
     markers:[],
     error: ''
+    
+}
+
+const initialFileName = {
+    filename:''
     
 }
 export const SetCurrentPosReducer= (state=initialStateUserPosition, action={}) =>{
@@ -63,6 +70,15 @@ export const OnRequestMarkesReducer = (state = initialStateMarkers, action={})=>
             return Object.assign({},state,{markers: action.payload, isPending: false}); 
         case REQUEST_MARKERS_ERROR:
             return Object.assign({},state,{error: action.payload, isPending: false});  
+        default:
+            return state;
+    }
+}
+
+export const PassFileNameReducer= (state=initialFileName, action={}) =>{
+    switch(action.type){
+        case PASS_FILE_NAME:
+            return Object.assign({},state,{filename:action.payload1});
         default:
             return state;
     }
