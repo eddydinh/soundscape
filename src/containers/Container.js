@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import GoogleApiComponent from '../components/GoogleApiHandlers/GoogleApiComponent'
-import {ApiKey} from './ApiKey'
+import {ApiKey} from './MapData/ApiKey'
 import Map from './Map'
 import Marker from '../components/Marker'
 import InfoWindow from '../components/InfoWindow'

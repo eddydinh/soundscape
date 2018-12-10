@@ -4,7 +4,7 @@ import React, {
 import ReactDOM from 'react-dom'
 import {
     MapStyle
-} from './MapStyle'
+} from './MapData/MapStyle'
 import PropTypes from 'prop-types';
 import {
     SetCurrentLocation

@@ -18,7 +18,8 @@ const mapStateToProps = state => {
     return {
         lat: state.OnRecordLatLngReducer.lat,
         lng: state.OnRecordLatLngReducer.lng,
-        currentLocation: state.SetCurrentPosReducer.currentLocation
+        currentLocation: state.SetCurrentPosReducer.currentLocation,
+        markers: state.OnRequestMarkesReducer.markers,
     }
 
 }

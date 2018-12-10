@@ -15,12 +15,30 @@ export default class AudioPlayer extends Component{
             
         
         }
-        this.audio = new Audio (this.state.url)
+        this.audio = new Audio (this.state.url);
+        this.markerAudio = new Audio ();
         this.togglePlay = this.togglePlay.bind(this);
         this.audio.autoplay =true;
         this.audio.loop =true;
+        
     }
     
+    componentDidUpdate(prevProps,prevState){
+        if(prevProps.markerAudio !== this.props.markerAudio){
+            this.TurnOnMarkerAudio(this.props.markerAudio);
+        }
+    }
+    
+    //Turn on audio for marker in close proximity
+    TurnOnMarkerAudio(filename){
+        this.audio.pause()
+        const src = `http://localhost:3000/${filename}`
+        this.markerAudio.src = src;
+        this.markerAudio.play();
+        this.markerAudio.onended = () => {
+            this.audio.play()
+        }
+    }
     render(){
         return (  <div className="audioWrapper">   
             <button onClick={this.togglePlay}>{this.state.play ? 'Play' : 'Pause'}</button>
@@ -29,8 +47,13 @@ export default class AudioPlayer extends Component{
     
     togglePlay(){
         this.setState({play:!this.state.play});
-        console.log(this.state.play);
-        this.state.play ? this.audio.muted = false  : this.audio.muted = true
+        if (this.state.play){
+            this.audio.muted = false ;
+            this.markerAudio.muted =false;
+        }else{
+            this.audio.muted = true;
+            this.markerAudio.muted = true;
+        }
     }
 
 

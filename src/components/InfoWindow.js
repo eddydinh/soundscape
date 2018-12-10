@@ -83,15 +83,15 @@ export default class InfoWindow extends Component{
             top: '5px'
         });
 
-        // Moves the shadow of the arrow 45px down.
-        iwBackground.children(':nth-child(1)').attr('style', function(i, s) {
-            return s + 'top: 5px !important;'
-        });
-
-        // Moves the arrow 45px down.
-        iwBackground.children(':nth-child(3)').attr('style', function(i, s) {
-            return s + 'top: 5px !important;'
-        });
+//        // Moves the shadow of the arrow 45px down.
+//        iwBackground.children(':nth-child(1)').attr('style', function(i, s) {
+//            return s + 'top: 10px !important;'
+//        });
+//
+//        // Moves the arrow 45px down.
+//        iwBackground.children(':nth-child(3)').attr('style', function(i, s) {
+//            return s + 'top: 10px !important;'
+//        });
 
         // Reference to the div that groups the close button elements.
         let iwCloseBtn = iwOuter.next();

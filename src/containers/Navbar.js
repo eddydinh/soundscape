@@ -4,7 +4,20 @@ import React, {
 import Button from '../components/Button'
 import Form from './Form';
 import AudioPlayer from '../components/AudioPlayer'
-export default class Navbar extends Component {
+import {
+    connect
+} from 'react-redux'
+
+
+const mapStateToProps = state => {
+  
+    return {
+        filename: state.PassFileNameReducer.filename
+    }
+
+}
+
+export class Navbar extends Component {
   
     constructor(props) {
         super(props);
@@ -30,7 +43,7 @@ export default class Navbar extends Component {
       return (<div width={'100%'} height={'100%'}> <div style = {navStyles}> 
             <Button as= {"a"} imageSrc = {this.btnImg} onButtonClick = {this.OnClickEvent}/> 
             
-            <AudioPlayer></AudioPlayer>
+            <AudioPlayer markerAudio={this.props.filename}></AudioPlayer>
             
             </div>
             
@@ -60,3 +73,5 @@ export default class Navbar extends Component {
         }
     }
 }
+
+export default connect(mapStateToProps)(Navbar);
