@@ -1,0 +1,20 @@
+.audioWrapper{
+    display:table;
+    height:100%;
+}
+.audioWrapper button{
+    padding:10px;
+    color:white;
+    background: #1C2C35;
+    border: 1px solid #1C2C35;
+    margin:35% 20% 0% 20%
+    
+    
+}
+
+@media only screen and (max-width: 400px) {
+    .audioWrapper button {
+     
+        margin: 25% 15% 0% 15%;
+    }
+}

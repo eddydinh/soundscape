@@ -110,11 +110,11 @@ export class Form extends Component{
     
     componentDidUpdate(prevProps, prevState){
         if(prevProps.lat !== this.props.lat){
-            console.log("Changelat");
+            
             this.setState({lat: this.props.lat});
         }
         if(prevProps.lng !== this.props.lng){
-console.log("Changelng");
+
             this.setState({lng: this.props.lng});
         }
     }

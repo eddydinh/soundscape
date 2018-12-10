@@ -3,7 +3,7 @@ import React, {
 } from 'react'
 import Button from './Button'
 import Form from '../containers/Form';
-
+import AudioPlayer from '../components/AudioPlayer'
 export default class Navbar extends Component {
     constructor(props) {
         super(props);
@@ -23,9 +23,26 @@ export default class Navbar extends Component {
         }
       
         if (!this.state.clicked) {
-            return ( <div style = {navStyles}> <Button as= {"a"} imageSrc = {require('../img/addPinBtn.png')} onButtonClick = {this.OnClickEvent}/>   </div > )
+            return ( 
+                
+        <div style = {navStyles}> 
+            <Button as= {"a"} imageSrc = {require('../img/addPinBtn.png')} onButtonClick = {this.OnClickEvent}/>   
+            <AudioPlayer></AudioPlayer>
+            </div > )
         } else {
-            return (<div width={'100%'} height={'100%'}> <div style = {navStyles}> <Button as= {"a"} imageSrc = {require('../img/addPinBtnClicked.png')} onButtonClick = {this.OnClickEvent}/> </div> <div><Form></Form></div></div>)
+            return (<div width={'100%'} height={'100%'}> <div style = {navStyles}> 
+            <Button as= {"a"} imageSrc = {require('../img/addPinBtnClicked.png')} onButtonClick = {this.OnClickEvent}/> 
+            
+            <AudioPlayer></AudioPlayer>
+            
+            </div>
+            
+            <div>
+            <Form></Form>
+            
+            </div>
+            
+            </div>)
         }
 
 
