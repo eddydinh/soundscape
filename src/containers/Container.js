@@ -5,6 +5,7 @@ import Map from './Map'
 import Marker from '../components/Marker'
 import InfoWindow from '../components/InfoWindow'
 import MarkerList from '../components/MarkerList'
+import Message from '../components/Message'
 import {
     connect
 } from 'react-redux'
@@ -23,7 +24,6 @@ const mapStateToProps = state => {
         activeMarker:state.OnInfowinEventReducer.activeMarker,
         showingInfoWindow:state.OnInfowinEventReducer.showingInfoWindow,
         markers: state.OnRequestMarkesReducer.markers,
-        isPending: state.OnRequestMarkesReducer.isPending,
         error: state.OnRequestMarkesReducer.error,
         currentLocation: state.SetCurrentPosReducer.currentLocation,
     
@@ -55,7 +55,7 @@ export class Container extends Component {
         }
     }
     render(){
-        const{OnInfoWindowEvent,isPending}=this.props;
+        const{OnInfoWindowEvent}=this.props;
 
         const style = {
             width:'100vw',
@@ -70,6 +70,7 @@ export class Container extends Component {
         return (
             <div style={style}>
                   <Navbar/>
+                  <Message as={'error'} error={"Please fill out all the blanks"}></Message>
               <Map click={this.OnMapClick} google ={this.props.google}>
                
                
@@ -88,7 +89,7 @@ export class Container extends Component {
                     </div>
                 </InfoWindow>
             </Map>
-        
+                
             </div>
         )
     }

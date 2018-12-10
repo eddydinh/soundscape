@@ -2,7 +2,6 @@ import React, {
     Component
 } from 'react'
 import '../css/audioplayer.css'
-import Button from './Button'
 export default class AudioPlayer extends Component{
     
     constructor(props){

@@ -1,0 +1,28 @@
+
+#messageWrapper{
+    
+   width:100%;
+    height:100%;
+    position:absolute;
+}
+#light{
+   position:absolute;
+    z-index:3002;
+    left:50%;
+    margin:50px 0px 0px -216px;
+    top:25%;
+        animation-name: animatetop;
+    animation-duration: 0.4s
+}
+#fade{
+   position:absolute;
+    z-index:3001;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5)
+}
+/* Add Animation */
+@keyframes animatetop {
+    from {top: -1000px; opacity: 0}
+    to {top: 25%; opacity: 1}
+}
