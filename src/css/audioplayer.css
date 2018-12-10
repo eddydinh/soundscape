@@ -4,10 +4,11 @@
 }
 .audioWrapper button{
     padding:10px;
-    color:white;
-    background: #1C2C35;
-    border: 1px solid #1C2C35;
-    margin:35% 20% 0% 20%
+    background:transparent;
+    color: #1C2C35;
+    border: none;
+    margin:-10% 20% 0% 20%;
+    font-size:50px;
     
     
 }
@@ -15,6 +16,6 @@
 @media only screen and (max-width: 400px) {
     .audioWrapper button {
      
-        margin: 25% 15% 0% 15%;
+        margin: -20% 15% 0% 15%;
     }
 }

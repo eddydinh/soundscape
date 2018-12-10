@@ -7,12 +7,24 @@ import AudioPlayer from '../components/AudioPlayer'
 import {
     connect
 } from 'react-redux'
+import{
+    OnReset
+}from '../actions'
 
 
 const mapStateToProps = state => {
   
     return {
-        filename: state.PassFileNameReducer.filename
+        filename: state.PassFileNameReducer.filename,
+        resetclick: state.OnResetReducer.resetclick
+    }
+
+}
+
+const mapDispatchToProps = dispatch => {
+  
+    return {
+        OnResetClick: (click)=> dispatch(OnReset(click))
     }
 
 }
@@ -38,12 +50,16 @@ export class Navbar extends Component {
         }
       
         const {clicked} = this.state;
+        
+        
       
    
       return (<div width={'100%'} height={'100%'}> <div style = {navStyles}> 
             <Button as= {"a"} imageSrc = {this.btnImg} onButtonClick = {this.OnClickEvent}/> 
             
             <AudioPlayer markerAudio={this.props.filename}></AudioPlayer>
+            
+            <Button addClass={"resetBtn"} as= {"a"} imageSrc = {require('../img/FindMeIcon.png')} onButtonClick = {this.OnReset}/> 
             
             </div>
             
@@ -72,6 +88,14 @@ export class Navbar extends Component {
            
         }
     }
+    
+    OnReset = () =>{
+        const {OnResetClick, resetclick} = this.props;
+        console.log(resetclick);
+        OnResetClick(!resetclick)
+    }
+    
+    
 }
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

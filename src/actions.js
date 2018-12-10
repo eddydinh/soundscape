@@ -6,7 +6,7 @@ import {
         REQUEST_MARKERS_SUCCESS,
         REQUEST_MARKERS_ERROR,
         PASS_FILE_NAME,
-        ADD_LOCAL_MARKER
+        ON_RESET
 } from './constants.js'
 
 export const SetCurrentLocation = (location) => ({
@@ -34,11 +34,12 @@ export const PassFileName = (filename) => ({
     
 })
 
-export const AddLocalMarker = (marker) => ({
-    type: ADD_LOCAL_MARKER,
-    payload1: marker
+export const OnReset = (click) => ({
+    type: ON_RESET,
+    payload1: click
     
 })
+
 
 export const requestMarkers = ()=>(dispatch) => {
     
@@ -51,4 +52,6 @@ export const requestMarkers = ()=>(dispatch) => {
     
 
 }
+
+
 

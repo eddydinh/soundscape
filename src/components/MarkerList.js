@@ -2,7 +2,7 @@ import React, {
     Component
 } from 'react'
 import Marker from './Marker'
-
+import PropTypes from 'prop-types';
 export default class MarkerList extends Component { 
   
     
@@ -28,4 +28,8 @@ export default class MarkerList extends Component {
     )
     }
 
+}
+MarkerList.propTypes ={
+    markerArray:PropTypes.array
+  
 }

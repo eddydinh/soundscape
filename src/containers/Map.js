@@ -20,6 +20,7 @@ const mapStateToProps = state => {
 
     return {
         currentLocation: state.SetCurrentPosReducer.currentLocation,
+        resetclick: state.OnResetReducer.resetclick
 
     }
 
@@ -48,8 +49,15 @@ class Map extends Component {
         }
         //When user's location changes 
         if (prevProps.currentLocation !== currentLocation) {
-            this.recenterMap();
+             if(!this.initialRecenter){
+                this.recenterMap();
+                this.initialRecenter = true;
+            }
         }
+        
+         if (prevProps.resetclick !== this.props.resetclick) {
+             this.recenterMap();
+         }
 
 
 
@@ -147,12 +155,13 @@ class Map extends Component {
 
         if (map) {
             let center = new maps.LatLng(currentLocation.lat, currentLocation.lng);
-            if(!this.initialRecenter){
+           
                 map.panTo(center);
-                this.initialRecenter = true;
-            }
+            
         }
     }
+
+
     //Render and passing down props to children components of Map
     renderChildren() {
         const {

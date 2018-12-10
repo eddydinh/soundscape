@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 export default class Button extends Component{
 
     render(){
-        const {imageSrc,onButtonClick,as,nameofClass,placeholder,onClick} = this.props;
+        const {imageSrc,onButtonClick,as,nameofClass,placeholder,onClick, addClass} = this.props;
    
         const styleImage ={
             width:'35px',
@@ -21,7 +21,7 @@ export default class Button extends Component{
         
         if(as==="a"){
    
-            return (<a className="btn" onClick={onButtonClick}>
+            return (<a className= {`btn ${addClass}`} onClick={onButtonClick}>
 
                 <img src={imageSrc} style={styleImage} alt={""} />
 

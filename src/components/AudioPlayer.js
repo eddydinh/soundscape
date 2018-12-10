@@ -3,7 +3,6 @@ import React, {
 } from 'react'
 import '../css/audioplayer.css'
 import Button from './Button'
-import PropTypes from 'prop-types';
 export default class AudioPlayer extends Component{
     
     constructor(props){
@@ -41,7 +40,7 @@ export default class AudioPlayer extends Component{
     }
     render(){
         return (  <div className="audioWrapper">   
-            <button onClick={this.togglePlay}>{this.state.play ? 'Play' : 'Pause'}</button>
+            <button onClick={this.togglePlay}>{this.state.play ? <i className="fas fa-volume-off"></i>: <i className="fas fa-volume-up"></i> }</button>
            </div>)
     }
     

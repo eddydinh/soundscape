@@ -5,7 +5,7 @@ import {CHANGE_CURRENT_LOCATION,
         REQUEST_MARKERS_SUCCESS,
         REQUEST_MARKERS_ERROR,
         PASS_FILE_NAME,
-        ADD_LOCAL_MARKER
+        ON_RESET
        } from './constants.js'
 
 const initialStateUserPosition = {
@@ -36,11 +36,11 @@ const initialFileName = {
     filename:''
     
 }
-
-const initialLocalMarkers = {
-    localmarkers:[]
-    
+const initialResetClick = {
+    resetclick:true
 }
+
+
 export const SetCurrentPosReducer= (state=initialStateUserPosition, action={}) =>{
     switch(action.type){
         case CHANGE_CURRENT_LOCATION:
@@ -85,6 +85,15 @@ export const PassFileNameReducer= (state=initialFileName, action={}) =>{
     switch(action.type){
         case PASS_FILE_NAME:
             return Object.assign({},state,{filename:action.payload1});
+        default:
+            return state;
+    }
+}
+
+export const OnResetReducer= (state=initialResetClick, action={}) =>{
+    switch(action.type){
+        case ON_RESET:
+            return Object.assign({},state,{resetclick:action.payload1});
         default:
             return state;
     }
