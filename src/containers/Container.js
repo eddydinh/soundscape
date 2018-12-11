@@ -105,7 +105,7 @@ ClosePopUp = () =>{
 CheckMarkers = () =>{
     const {markers, currentLocation} = this.props;
     for(let i=0; i< markers.length; i ++){
-        if(this.getDistance({lat: markers[i].lat, lng:markers[i].lng}, currentLocation) < 1000){
+        if(this.getDistance({lat: markers[i].lat, lng:markers[i].lng}, currentLocation) < 100){
            
                 this.props.PlayMarkerAudio(markers[i].filename)
         }

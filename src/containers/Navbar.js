@@ -91,7 +91,6 @@ export class Navbar extends Component {
     
     OnReset = () =>{
         const {OnResetClick, resetclick} = this.props;
-        console.log(resetclick);
         OnResetClick(!resetclick)
     }
     
