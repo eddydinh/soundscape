@@ -10,8 +10,10 @@ import {SetCurrentPosReducer,
         OnRecordLatLngReducer,
         OnRequestMarkesReducer,
         PassFileNameReducer,
-       OnResetReducer} from './reducers';
+       OnResetReducer,
+       SetMessageReducer} from './reducers';
 import * as serviceWorker from './serviceWorker';
+      
 
 
 const rootReducer = combineReducers({SetCurrentPosReducer,
@@ -19,7 +21,8 @@ const rootReducer = combineReducers({SetCurrentPosReducer,
                                      OnRecordLatLngReducer,
                                      OnRequestMarkesReducer,
                                      PassFileNameReducer,
-                                    OnResetReducer});
+                                    OnResetReducer,
+                                    SetMessageReducer});
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 ReactDOM.render(<Provider store ={store}>

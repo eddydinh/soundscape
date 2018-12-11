@@ -8,7 +8,8 @@ import {
 } from 'react-redux'
 import {
     RecordLatLng,
-    requestMarkers
+    requestMarkers,
+    SetMessage
 } from '../actions'
 import Modal from "../components/Modal"
 import '../css/form.css';
@@ -28,6 +29,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         OnAutoButtonClick: (location) => dispatch(RecordLatLng(location)),
         OnRequestMarkers: () => dispatch(requestMarkers()),
+        SetMessage: (type, success, error) => dispatch(SetMessage(type, success, error))
        
     }
 
@@ -80,7 +82,21 @@ export class Form extends Component{
     
     
     HandleSubmit = () =>{
-    const {closeForm} = this.props;
+    const{title,description,lat,lng,file,filetype,filename}= this.state;
+    const {closeForm, SetMessage,OnRequestMarkers} = this.props;
+        
+    //Assume that user never add marker at the zero/zero point (Gulf of Guinea)
+        
+    if((title ==='') || (description === '') || (lat === 0) || (lng === 0) || (file === null) || (filename === 'Upload a sound file (Max: 1GB)')){
+        SetMessage('error', '', 'Please fill out the submit form');
+        return
+    } 
+    
+    if (!(this.CheckExtension(filename))){
+        SetMessage('error', '', 'Uploaded file is not a sound file');
+        return
+    }
+
        const formData = new FormData();
        const obj = this.state;
        Object.keys(obj).forEach(function(key) {
@@ -104,8 +120,12 @@ export class Form extends Component{
         .then((data) => {
            if(data === 'success'){
                console.log(data);
-                this.props.OnRequestMarkers();
-                                 }
+               OnRequestMarkers();
+               this.ResetState();
+               console.log("Ho!");
+               SetMessage('success', 'Congratulations! You successfully added a marker!', '');
+               
+            }
             else console.log("failed");
         })
         
@@ -115,7 +135,16 @@ export class Form extends Component{
         
         
     }
+    ResetState =() =>{
+        this.setState({title:'', description:''});
+        console.log(this.state);
+    }
     
+    CheckExtension = (filename) => {
+        
+        if ( /\.(ogg|wav|mp3|)$/i.test(filename) === false ) { return false; }
+        return true;
+}
     componentDidUpdate(prevProps, prevState){
         if(prevProps.lat !== this.props.lat){
             

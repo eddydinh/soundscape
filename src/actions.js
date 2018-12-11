@@ -6,7 +6,8 @@ import {
         REQUEST_MARKERS_SUCCESS,
         REQUEST_MARKERS_ERROR,
         PASS_FILE_NAME,
-        ON_RESET
+        ON_RESET,
+        SET_MESSAGE
 } from './constants.js'
 
 export const SetCurrentLocation = (location) => ({
@@ -37,6 +38,14 @@ export const PassFileName = (filename) => ({
 export const OnReset = (click) => ({
     type: ON_RESET,
     payload1: click
+    
+})
+
+export const SetMessage = (type,success,error) => ({
+    type: SET_MESSAGE,
+    payload1: type,
+    payload2:success,
+    payload3:error
     
 })
 

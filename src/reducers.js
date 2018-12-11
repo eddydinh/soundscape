@@ -5,7 +5,8 @@ import {CHANGE_CURRENT_LOCATION,
         REQUEST_MARKERS_SUCCESS,
         REQUEST_MARKERS_ERROR,
         PASS_FILE_NAME,
-        ON_RESET
+        ON_RESET,
+        SET_MESSAGE
        } from './constants.js'
 
 const initialStateUserPosition = {
@@ -39,6 +40,13 @@ const initialFileName = {
 const initialResetClick = {
     resetclick:true
 }
+
+const initialMessage = {
+    messageType:'none',
+    messageSuccess: 'Congratulations! Marker was successfully added!',
+    messageError:'Please fill out the submit form'
+}
+
 
 
 export const SetCurrentPosReducer= (state=initialStateUserPosition, action={}) =>{
@@ -94,6 +102,17 @@ export const OnResetReducer= (state=initialResetClick, action={}) =>{
     switch(action.type){
         case ON_RESET:
             return Object.assign({},state,{resetclick:action.payload1});
+        default:
+            return state;
+    }
+}
+
+export const SetMessageReducer= (state=initialMessage, action={}) =>{
+    switch(action.type){
+        case SET_MESSAGE:
+            return Object.assign({},state,{messageType:action.payload1,
+                                           messageSuccess:action.payload2,
+                                           messageError:action.payload3});
         default:
             return state;
     }

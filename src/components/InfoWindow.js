@@ -125,3 +125,10 @@ export default class InfoWindow extends Component{
         }
     }
 }
+InfoWindow.propTypes = {
+    google: PropTypes.object,
+    map: PropTypes.object,
+    marker: PropTypes.object,
+    infowincontent: PropTypes.object,
+    visible: PropTypes.bool
+}

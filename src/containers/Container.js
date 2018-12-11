@@ -13,7 +13,8 @@ import {
     OnInfowinEventAction,
     RecordLatLng,
     requestMarkers,
-    PassFileName
+    PassFileName,
+    SetMessage
 } from '../actions'
 import Navbar from './Navbar'
 //pass state in reducer to props
@@ -26,8 +27,10 @@ const mapStateToProps = state => {
         markers: state.OnRequestMarkesReducer.markers,
         error: state.OnRequestMarkesReducer.error,
         currentLocation: state.SetCurrentPosReducer.currentLocation,
-    
-
+        messageType: state.SetMessageReducer.messageType,
+        messageSuccess:state.SetMessageReducer.messageSuccess,
+        messageError:state.SetMessageReducer.messageError
+  
 
     }
 
@@ -38,7 +41,8 @@ const mapDispatchToProps = (dispatch) => {
         OnInfoWindowEvent: (props,marker,e) => dispatch(OnInfowinEventAction(props,marker,e)),
         OnGuidingMarkerClick: (location) => dispatch(RecordLatLng(location)),
         OnRequestMarkers: () => dispatch(requestMarkers()),
-        PlayMarkerAudio: (filename)=>dispatch(PassFileName(filename))
+        PlayMarkerAudio: (filename)=>dispatch(PassFileName(filename)),
+        OnCloseMessage: (type, success, error) => dispatch(SetMessage(type, success, error))
     }
 
 }
@@ -55,7 +59,7 @@ export class Container extends Component {
         }
     }
     render(){
-        const{OnInfoWindowEvent}=this.props;
+        const{OnInfoWindowEvent,messageType,messageSuccess, messageError}=this.props;
 
         const style = {
             width:'100vw',
@@ -70,8 +74,9 @@ export class Container extends Component {
         return (
             <div style={style}>
                   <Navbar/>
-                  <Message as={'error'} error={"Please fill out all the blanks"}></Message>
-              <Map click={this.OnMapClick} google ={this.props.google}>
+                  <Message onClose ={this.ClosePopUp} as={messageType} success={messageSuccess} error={messageError} ></Message>
+                  
+                  <Map click={this.OnMapClick} google ={this.props.google}>
                
                
                 <Marker icon={{url:usericon,scaledSize: new this.props.google.maps.Size(45, 45)}} onInstantiate={OnInfoWindowEvent} infowincontent={{title: "  YOU ARE HERE!"}}/>
@@ -93,7 +98,10 @@ export class Container extends Component {
             </div>
         )
     }
-
+ClosePopUp = () =>{
+    const{OnCloseMessage} = this.props;
+    OnCloseMessage('none','','')
+}
 CheckMarkers = () =>{
     const {markers, currentLocation} = this.props;
     for(let i=0; i< markers.length; i ++){
