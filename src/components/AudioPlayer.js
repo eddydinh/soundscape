@@ -51,7 +51,7 @@ export default class AudioPlayer extends Component{
    FadeOutVolume =(callback,speed,factor,_audio) =>{
        const {audio,markerAudio} = this;
          let fadedaudio = null;
-       if(_audio=="main"){
+       if(_audio==="main"){
            fadedaudio = audio;
        }else{
            fadedaudio = markerAudio;
@@ -69,7 +69,7 @@ export default class AudioPlayer extends Component{
        
        const {audio,markerAudio} = this;
        let fadedaudio = null;
-       if(_audio=="main"){
+       if(_audio==="main"){
            fadedaudio = audio;
        }else{
            fadedaudio = markerAudio;

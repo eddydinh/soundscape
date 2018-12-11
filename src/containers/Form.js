@@ -82,7 +82,7 @@ export class Form extends Component{
     
     
     HandleSubmit = () =>{
-    const{title,description,lat,lng,file,filetype,filename}= this.state;
+    const{title,description,lat,lng,file,filename}= this.state;
     const {closeForm, SetMessage,OnRequestMarkers} = this.props;
         
     //Assume that user never add marker at the zero/zero point (Gulf of Guinea)
