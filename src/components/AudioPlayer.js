@@ -31,24 +31,24 @@ export default class AudioPlayer extends Component{
     TurnOnMarkerAudio(filename){
        const {FadeInVolume, FadeOutVolume} = this;
        
-  FadeOutVolume(()=>{
+        FadeOutVolume(()=>{
              this.audio.pause()
         const src = `http://localhost:3000/${filename}`
         this.markerAudio.src = src;
         this.markerAudio.volume = 0;
         this.markerAudio.play();
-        FadeInVolume(()=>{return},0.009,1,"marker");
+        FadeInVolume(()=>{return},50,0.01,1,"marker");
         this.markerAudio.onended = () => {
             this.audio.play()
-            FadeInVolume(()=>{return}, 0.01, 1,"main")
+            FadeInVolume(()=>{return},10, 0.01, 1,"main")
             
         }
-        }, 0.01,"main" )
+        },10, 0.01,"main" )
        
       
     }
     
-   FadeOutVolume =(callback,factor,_audio) =>{
+   FadeOutVolume =(callback,speed,factor,_audio) =>{
        const {audio,markerAudio} = this;
          let fadedaudio = null;
        if(_audio=="main"){
@@ -58,14 +58,15 @@ export default class AudioPlayer extends Component{
        }
        if(fadedaudio.volume > factor){
    		fadedaudio.volume -= factor;
-        setTimeout(this.FadeOutVolume,10,callback,factor,_audio);
+        setTimeout(this.FadeOutVolume,speed,callback,speed,factor,_audio);
     }else{
     	(typeof(callback) !== 'function') || callback();
     }
    }
    
    
-   FadeInVolume =(callback,factor,target,_audio) =>{
+   FadeInVolume =(callback,speed,factor,target,_audio) =>{
+       
        const {audio,markerAudio} = this;
        let fadedaudio = null;
        if(_audio=="main"){
@@ -73,9 +74,10 @@ export default class AudioPlayer extends Component{
        }else{
            fadedaudio = markerAudio;
        }
+       
        if(fadedaudio.volume < target-factor){
    		fadedaudio.volume += factor;
-        setTimeout(this.FadeInVolume,10,callback,factor,target,_audio);
+        setTimeout(this.FadeInVolume,speed,callback,speed,factor,target,_audio);
     }else{
     	(typeof(callback) !== 'function') || callback();
     }
