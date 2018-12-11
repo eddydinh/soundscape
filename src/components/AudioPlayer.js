@@ -29,14 +29,58 @@ export default class AudioPlayer extends Component{
     
     //Turn on audio for marker in close proximity
     TurnOnMarkerAudio(filename){
-        this.audio.pause()
+       const {FadeInVolume, FadeOutVolume} = this;
+       
+  FadeOutVolume(()=>{
+             this.audio.pause()
         const src = `http://localhost:3000/${filename}`
         this.markerAudio.src = src;
+        this.markerAudio.volume = 0;
         this.markerAudio.play();
+        FadeInVolume(()=>{return},0.009,1,"marker");
         this.markerAudio.onended = () => {
             this.audio.play()
+            FadeInVolume(()=>{return}, 0.01, 1,"main")
+            
         }
+        }, 0.01,"main" )
+       
+      
     }
+    
+   FadeOutVolume =(callback,factor,_audio) =>{
+       const {audio,markerAudio} = this;
+         let fadedaudio = null;
+       if(_audio=="main"){
+           fadedaudio = audio;
+       }else{
+           fadedaudio = markerAudio;
+       }
+       if(fadedaudio.volume > factor){
+   		fadedaudio.volume -= factor;
+        setTimeout(this.FadeOutVolume,10,callback,factor,_audio);
+    }else{
+    	(typeof(callback) !== 'function') || callback();
+    }
+   }
+   
+   
+   FadeInVolume =(callback,factor,target,_audio) =>{
+       const {audio,markerAudio} = this;
+       let fadedaudio = null;
+       if(_audio=="main"){
+           fadedaudio = audio;
+       }else{
+           fadedaudio = markerAudio;
+       }
+       if(fadedaudio.volume < target-factor){
+   		fadedaudio.volume += factor;
+        setTimeout(this.FadeInVolume,10,callback,factor,target,_audio);
+    }else{
+    	(typeof(callback) !== 'function') || callback();
+    }
+   }
+
     render(){
         return (  <div className="audioWrapper">   
             <button onClick={this.togglePlay}>{this.state.play ? <i className="fas fa-volume-off"></i>: <i className="fas fa-volume-up"></i> }</button>

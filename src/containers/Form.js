@@ -106,6 +106,7 @@ export class Form extends Component{
            
         });
 
+//  Use this to inspect formData
 //        for (var pair of formData.entries()) {
 //            console.log(pair[0]+ ', ' + pair[1]); 
 //        }
@@ -122,7 +123,6 @@ export class Form extends Component{
                console.log(data);
                OnRequestMarkers();
                this.ResetState();
-               console.log("Ho!");
                SetMessage('success', 'Congratulations! You successfully added a marker!', '');
                
             }
@@ -137,9 +137,11 @@ export class Form extends Component{
     }
     ResetState =() =>{
         this.setState({title:'', description:''});
-        console.log(this.state);
+        
     }
     
+    //Src:https://stackoverflow.com/questions/4234589/validation-of-file-extension-before-uploading-file
+    //Check file upload extension with RegEx
     CheckExtension = (filename) => {
         
         if ( /\.(ogg|wav|mp3|)$/i.test(filename) === false ) { return false; }
