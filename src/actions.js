@@ -54,7 +54,7 @@ export const requestMarkers = ()=>(dispatch) => {
     
     
     dispatch({type: REQUEST_MARKERS_PENDING});
-    fetch('http://localhost:3000/database')
+    fetch('https://mysterious-ocean-66569.herokuapp.com/database')
         .then(response => response.json())
         .then(data => dispatch({type:REQUEST_MARKERS_SUCCESS, payload:data}))
         .catch(err=>dispatch({type:REQUEST_MARKERS_ERROR, payload:err}))

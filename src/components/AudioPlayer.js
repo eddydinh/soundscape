@@ -9,7 +9,7 @@ export default class AudioPlayer extends Component{
         this.state = {
             
             play: false,
-            url : "http://localhost:3000/bgAudio.mp3",
+            url : "https://mysterious-ocean-66569.herokuapp.com/bgAudio.mp3",
             
         
         }
@@ -33,7 +33,7 @@ export default class AudioPlayer extends Component{
        
         FadeOutVolume(()=>{
              this.audio.pause()
-        const src = `http://localhost:3000/${filename}`
+        const src = `https://mysterious-ocean-66569.herokuapp.com/${filename}`
         this.markerAudio.src = src;
         this.markerAudio.volume = 0;
         this.markerAudio.play();

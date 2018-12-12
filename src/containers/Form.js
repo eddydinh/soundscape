@@ -112,7 +112,7 @@ export class Form extends Component{
 //        }
 
       
-        fetch('http://localhost:3000/addmarker',{
+        fetch('https://mysterious-ocean-66569.herokuapp.com/addmarker',{
             method: 'post',
             body:formData
             

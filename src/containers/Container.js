@@ -50,6 +50,7 @@ export class Container extends Component {
     guidingMarker = null;
     
     componentDidMount(){
+        
         this.props.OnRequestMarkers();
     }
 
