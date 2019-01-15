@@ -4,13 +4,17 @@ import React, {
 import '../css/button.css'
 import PropTypes from 'prop-types';
 export default class Button extends Component{
-
+    
     render(){
-        const {imageSrc,onButtonClick,as,nameofClass,placeholder,onClick, addClass} = this.props;
-   
+     
+        const {imageSrc,as,nameofClass,placeholder,onClick, addClass, visible, iWidth,iHeight,modalID} = this.props;
+        
+       
+     
+        let styles = {};
         const styleImage ={
-            width:'35px',
-            height:'45px'
+            width:iWidth,
+            height: iHeight
         }
         
         const styleImageAddMedia ={
@@ -19,9 +23,29 @@ export default class Button extends Component{
             marginTop:'0px'
         }
         
+        
+        
+        if(visible!==null){
+           
+           
+           
+            if(visible){
+                styles = {
+                    display:'inline-block'
+                }
+            }
+            else{
+                styles ={
+                    display:'none'
+                }
+            }
+        }
+        
+       
+        
         if(as==="a"){
    
-            return (<a className= {`btn ${addClass}`} onClick={onButtonClick}>
+            return (<a style={styles} className= {`btn ${addClass}`} onClick={onClick}>
 
                 <img src={imageSrc} style={styleImage} alt={""} />
 
@@ -29,14 +53,19 @@ export default class Button extends Component{
         }
         else if (as==="btn-input"){
             
-            return (<input type="button" className={nameofClass} onClick={onClick} value={placeholder}></input>);
+            return (<input style={styles} type="button" className={nameofClass} onClick={onClick} value={placeholder}></input>);
         }
         else if (as==="btn-media"){
-            return(   <button className={nameofClass} type="button" data-toggle="modal" data-target="#myModal"><img src={imageSrc} style={styleImageAddMedia} alt={""}></img>{placeholder}</button>);
+            return(   
+                <button  className={nameofClass} type="button" data-toggle={"modal"} data-target={modalID}><img src={imageSrc} style={styleImageAddMedia} alt={""}></img>{placeholder}</button>);
         }
         else if (as==="btn-close"){
-            return(<button type="button" className={nameofClass} data-dismiss="modal">Close and Save</button>)
+            return(<button type="button" className={nameofClass} data-dismiss="modal" onClick={onClick}>{placeholder}</button>)
         }
+        else if (as==="modalBtn"){
+            return(<button style={styles} type="button" className={nameofClass} data-toggle="modal" data-target={modalID}>{placeholder}</button>)
+        }
+         
 
     }
 }

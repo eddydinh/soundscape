@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import {createStore,combineReducers,applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk'
 import Container from './containers/Container';
+import logger from 'redux-logger'
 import {SetCurrentPosReducer,
         OnInfowinEventReducer,
         OnRecordLatLngReducer,

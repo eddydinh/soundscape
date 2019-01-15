@@ -55,11 +55,11 @@ export class Navbar extends Component {
       
    
       return (<div width={'100%'} height={'100%'}> <div style = {navStyles}> 
-            <Button as= {"a"} imageSrc = {this.btnImg} onButtonClick = {this.OnClickEvent}/> 
+            <Button iWidth={'35px'} iHeight={'45px'} as= {"a"} imageSrc = {this.btnImg} onClick = {this.OnClickEvent}  visible={true}/> 
             
             <AudioPlayer markerAudio={this.props.filename}></AudioPlayer>
             
-            <Button addClass={"resetBtn"} as= {"a"} imageSrc = {require('../img/FindMeIcon.png')} onButtonClick = {this.OnReset}/> 
+            <Button iWidth={'35px'} iHeight={'45px'} addClass={"resetBtn"} as= {"a"} imageSrc = {require('../img/FindMeIcon.png')} onClick = {this.OnReset} visible={true}/> 
             
             </div>
             
@@ -67,6 +67,7 @@ export class Navbar extends Component {
             <Form closeForm={this.OnClickEvent} visible = {clicked}></Form>
             
             </div>
+  
             
             </div>)
         

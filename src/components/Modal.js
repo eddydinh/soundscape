@@ -8,11 +8,11 @@ import Button from './Button'
 export default class Modal extends Component{
 
     render(){
-        const {as} = this.props;   
+        const {as, modalID,value,onYesClick} = this.props;   
         if(as==="mediaModal"){
             return(
                 
-        <div id="myModal" className="modal fade" role="dialog">
+        <div id={modalID} className="modal fade" role="dialog">
         <div className="modal-dialog">
 
      
@@ -44,7 +44,7 @@ export default class Modal extends Component{
 
                 </div>
                 <div className="modal-footer">
-                    <Button as={"btn-close"} nameofClass={"btn-form btn-close"}>Close and Save</Button>
+                    <Button as={"btn-close"} nameofClass={"btn-form btn-close"} placeholder={"CLOSE & SAVE"}></Button>
                 </div>
             </div>
 
@@ -53,12 +53,40 @@ export default class Modal extends Component{
                 
             )
         }
+        
+        else if (as==="normalModal"){
+           return (
+                
+                 <div id={modalID} className="modal fade" role="dialog">
+        
+                 <div className="modal-dialog">
+                <div className="modal-content">
+                <div className="modal-header">
+                    <h4>{value}</h4>
+                </div>
+
+                <div className="modal-footer" style={{textAlign:"center"}}>
+                  
+
+                        <Button as={"btn-close"} nameofClass={"btn-form btn-close"} placeholder={"YES"} onClick ={onYesClick}></Button>
+                           
+                            <Button as={"btn-close"} nameofClass={"btn-form btn-close"} placeholder={"NO"}></Button>
+                   
+                </div>
+            </div>
+
+        </div>
+    </div>
+           
+           )
+        }
     }
     
 
 }
 Modal.propTypes = {
-    as: PropTypes.string
+    as: PropTypes.string,
+    modalID: PropTypes.string
 }
 Modal.defaultProps = {
     as: "mediaModal"

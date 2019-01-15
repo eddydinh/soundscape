@@ -10,11 +10,16 @@
 
 
         }
+
+.infoInput{
+    margin:10px 0px 0px 0px;
+    height:30px;
+}
+
  @media only screen and (max-width: 700px) {
     
 
             .gm-style-iw {
-                width: 130px !important;
                 top: 15px !important;
                 left: 0px !important;
                 background-color: #F4F4F4;

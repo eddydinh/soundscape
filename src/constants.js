@@ -7,3 +7,4 @@ export const REQUEST_MARKERS_ERROR = 'REQUEST_MARKERS_ERROR';
 export const PASS_FILE_NAME = 'PASS_FILE_NAME';
 export const ON_RESET = 'ON_RESET';
 export const SET_MESSAGE = 'SET_MESSAGE';
+export const ON_DISPLAY_EDIT = 'ON_DISPLAY_EDIT';

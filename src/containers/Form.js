@@ -41,8 +41,8 @@ export class Form extends Component{
         this.state = {
             title:'',
             description:'',
-            lat:0,
-            lng:0,
+            lat:null,
+            lng:null,
             file:null,
             filetype:'wav',
             filename:'Upload a sound file (Max: 1GB)'
@@ -85,9 +85,9 @@ export class Form extends Component{
     const{title,description,lat,lng,file,filename}= this.state;
     const {closeForm, SetMessage,OnRequestMarkers} = this.props;
         
-    //Assume that user never add marker at the zero/zero point (Gulf of Guinea)
+   
         
-    if((title ==='') || (description === '') || (lat === 0) || (lng === 0) || (file === null) || (filename === 'Upload a sound file (Max: 1GB)')){
+    if((title ==='') || (description === '') || (lat === null) || (lng === null) || (file === null) || (filename === 'Upload a sound file (Max: 1GB)')){
         SetMessage('error', '', 'Please fill out the submit form');
         return
     } 
@@ -100,19 +100,19 @@ export class Form extends Component{
        const formData = new FormData();
        const obj = this.state;
        Object.keys(obj).forEach(function(key) {
-
+            
             formData.append(key,obj[key]);
           
            
         });
 
-//  Use this to inspect formData
+//  //Use this to inspect formData
 //        for (var pair of formData.entries()) {
 //            console.log(pair[0]+ ', ' + pair[1]); 
 //        }
 
       
-        fetch('https://mysterious-ocean-66569.herokuapp.com/addmarker',{
+        fetch('http://localhost:3000/addmarker',{
             method: 'post',
             body:formData
             
@@ -126,7 +126,7 @@ export class Form extends Component{
                SetMessage('success', 'Congratulations! You successfully added a marker!', '');
                
             }
-            else console.log("failed");
+            else SetMessage('error', 'Unable to add marker - please try again later', '');;
         })
         
         closeForm();
@@ -167,11 +167,13 @@ componentDidMount(){
     
     render(){
         const {lat,lng,visible}= this.props;
+        const modalID = "myModal";
         return  !visible ? null :
         
         (
             
-            <div><div className="form-div">    
+            <div>
+            <div className="form-div">    
             <div className="form">
                
             
@@ -185,16 +187,18 @@ componentDidMount(){
                     <input readOnly className="latlng-input" id="lng" name="lng" type="float" placeholder="LNG" value={lng}></input>
                    
                     
-                   <Button as={"btn-input"} onClick={this.AutoButtonClick} placeholder={"AUTO"} nameofClass={"btn-form btn-auto"}></Button>
+                   <Button as={"btn-input"} onClick={this.AutoButtonClick} placeholder={"AUTO"} nameofClass={"btn-form btn-auto"} visible={true}></Button>
                    <br/>
-                   <Button as={"btn-media"} nameofClass= {"btn-form btn-media"} placeholder= {"  ADD MEDIA"} imageSrc={require("../img/AddMediaIcon.png")}></Button>
+                   <Button as={"btn-media"} nameofClass= {"btn-form btn-media"} placeholder= {"  ADD MEDIA"} imageSrc={require("../img/AddMediaIcon.png")}  visible={true} modalID={"#"+modalID}></Button>
                    <br/>
-                   <Button as={"btn-input"} placeholder={"ADD PIN"} nameofClass = {"btn-form btn-addPin"} onClick={this.HandleSubmit}></Button>
+                   <Button as={"btn-input"} placeholder={"ADD PIN"} nameofClass = {"btn-form btn-addPin"} onClick={this.HandleSubmit}  visible={true}></Button>
+                   
+             
    
             </div>
                
             </div>
-            <Modal as={"mediaModal"} handleUploadedFile ={this.HandleUploadedFile} inputFileName ={this.state.filename} handleFileType = {this.HandleFileType}></Modal>
+            <Modal as={"mediaModal"} handleUploadedFile ={this.HandleUploadedFile} inputFileName ={this.state.filename} handleFileType = {this.HandleFileType} modalID={modalID}></Modal>
             </div>
         )
     }

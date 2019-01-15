@@ -7,7 +7,8 @@ import {
         REQUEST_MARKERS_ERROR,
         PASS_FILE_NAME,
         ON_RESET,
-        SET_MESSAGE
+        SET_MESSAGE,
+        ON_DISPLAY_EDIT
 } from './constants.js'
 
 export const SetCurrentLocation = (location) => ({
@@ -19,7 +20,7 @@ export const OnInfowinEventAction = (props,marker,e) => ({
     type: ON_INFOWIN_EVENT,
     payload1: props,
     payload2: marker,
-    payload3: e
+    payload3: e,
 })
 
 export const RecordLatLng = (location) => ({
@@ -41,6 +42,13 @@ export const OnReset = (click) => ({
     
 })
 
+export const OnDisplayEdit = (visible) => ({
+    type: ON_DISPLAY_EDIT,
+    payload1: visible
+    
+})
+
+
 export const SetMessage = (type,success,error) => ({
     type: SET_MESSAGE,
     payload1: type,
@@ -54,7 +62,7 @@ export const requestMarkers = ()=>(dispatch) => {
     
     
     dispatch({type: REQUEST_MARKERS_PENDING});
-    fetch('https://mysterious-ocean-66569.herokuapp.com/database')
+    fetch('http://localhost:3000/database')
         .then(response => response.json())
         .then(data => dispatch({type:REQUEST_MARKERS_SUCCESS, payload:data}))
         .catch(err=>dispatch({type:REQUEST_MARKERS_ERROR, payload:err}))

@@ -58,6 +58,10 @@ class Map extends Component {
          if (prevProps.resetclick !== this.props.resetclick) {
              this.recenterMap();
          }
+        
+        if (prevProps.children !== this.props.children) {
+             this.renderChildren();
+         }
 
 
 

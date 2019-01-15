@@ -6,7 +6,8 @@ import {CHANGE_CURRENT_LOCATION,
         REQUEST_MARKERS_ERROR,
         PASS_FILE_NAME,
         ON_RESET,
-        SET_MESSAGE
+        SET_MESSAGE,
+        ON_DISPLAY_EDIT
        } from './constants.js'
 
 const initialStateUserPosition = {
@@ -18,7 +19,8 @@ const initialStateUserPosition = {
 const initialStateInfoWinEvent = {
     showingInfoWindow:false,
     activeMarker: {},
-    selectedPlace: {}
+    selectedPlace: {},
+    btnVisible: false
 }
 
 const initialStateLatLng = {
@@ -62,6 +64,8 @@ export const OnInfowinEventReducer= (state=initialStateInfoWinEvent, action={}) 
     switch(action.type){
         case ON_INFOWIN_EVENT:
             return Object.assign({},state,{selectedPlace:action.payload1,activeMarker:action.payload2,showingInfoWindow:action.payload3});
+        case ON_DISPLAY_EDIT:
+            return Object.assign({},state,{btnVisible:action.payload1});
         default:
             return state;
     }
