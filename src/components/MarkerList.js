@@ -21,7 +21,7 @@ export default class MarkerList extends Component {
    
         
     
-   
+   //List of markers
     const markerComponent = markerArray.map((entry, i)=>{
         
         return <Marker 

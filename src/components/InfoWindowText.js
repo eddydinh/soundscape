@@ -4,6 +4,8 @@ import React, {
 import PropTypes from 'prop-types'
 export default class InfoWindowText extends Component{
 
+    
+    //display infowin text 
     render(){
         const {value,visibility,styles} = this.props;
         let pStyle ={};

@@ -5,6 +5,9 @@ import GoogleApiComponent from '../components/GoogleApiHandlers/GoogleApiCompone
 import {
     ApiKey
 } from './MapData/ApiKey'
+import {
+    serverURL
+} from '../serverurl'
 import Map from './Map'
 import Marker from '../components/Marker'
 import MarkerList from '../components/MarkerList'
@@ -78,11 +81,14 @@ export class Container extends Component {
 
     componentDidMount() {
 
+        //Request markers from database
         this.props.OnRequestMarkers();
 
     }
 
     componentDidUpdate(prevProps, prevState) {
+        
+        //Check markers position everytime player moves
         if ((prevProps.currentLocation !== this.props.currentLocation) || (prevProps.markers !== this.props.markers)) {
             this.CheckMarkers();
 
@@ -92,6 +98,8 @@ export class Container extends Component {
 
 
     }
+
+//display app
     render() {
 
         const {
@@ -168,16 +176,13 @@ export class Container extends Component {
             inputFileName = {
                 this.state.filename
             }
-            handleFileType = {
-                this.HandleFileType
-            }
             modalID = {
                 editMediaModalID
             } > </Modal>
 
 
 
-
+            
             <Map click = {
                 this.OnMapClick
             }
@@ -419,6 +424,8 @@ export class Container extends Component {
 
         )
     }
+    
+    
     ReturnBtnVisibility = () => {
         if (this.props.btnVisible !== undefined) {
             return !this.props.btnVisible;
@@ -438,6 +445,8 @@ export class Container extends Component {
             currentLocation
         } = this.props;
         for (let i = 0; i < markers.length; i++) {
+            
+            
             if (this.getDistance({
                     lat: markers[i].lat,
                     lng: markers[i].lng
@@ -470,25 +479,16 @@ export class Container extends Component {
 
     }
 
-    HandleUploadedFile = (event) => {
+      HandleUploadedFile = (event)=>{
 
-        this.setState({
-            file: event.target.files[0]
-        });
-        this.setState({
-            filename: event.target.files[0].name
-        });
-
+        let uploadedFile =  event.target.files[0];
+        let filename = uploadedFile.name;
+        this.setState({file: uploadedFile});
+        this.setState({filename: filename});
+        this.setState({filetype: filename.split('.').pop()})
+        
     }
 
-    HandleFileType = (event) => {
-        this.setState({
-            filetype: event.target.value
-        });
-
-
-
-    }
 
     HandleTitle = (event) => {
         this.setState({
@@ -532,10 +532,13 @@ export class Container extends Component {
             SetMessage,
             OnInfoWindowEvent
         } = this.props;
+        const url = serverURL[0].url;
         const formData = new FormData();
         formData.append("id", this.props.activeMarker.get("id"));
 
-        fetch('http://localhost:3000/deletemarker', {
+                    
+        //delete post request
+        fetch(url+'deletemarker', {
                 method: 'post',
                 body: formData
 
@@ -570,6 +573,7 @@ export class Container extends Component {
         formData.append("id", this.props.activeMarker.get("id"));
         Object.keys(obj).forEach(function (key) {
 
+            //Only add necessary data to submit form for edit
             switch (key) {
                 case 'title':
                     if (obj[key] !== '') formData.append(key, obj[key]);
@@ -597,10 +601,15 @@ export class Container extends Component {
             }
         });
 
+//Use this to inspect formdata's content
+                    
 //        for (var pair of formData.entries()) {
 //            console.log(pair[0] + ', ' + pair[1]);
 //        }
-        fetch('http://localhost:3000/editmarker', {
+        
+        //edit marker post request
+        const url = serverURL[0].url;
+        fetch(url+'editmarker', {
                 method: 'post',
                 body: formData
 
@@ -628,7 +637,7 @@ export class Container extends Component {
     }
 
    
-    
+    //Check file's extension
     CheckExtension = (filename) => {
 
         if (/\.(ogg|wav|mp3|)$/i.test(filename) === false) {

@@ -11,6 +11,9 @@ import {
     requestMarkers,
     SetMessage
 } from '../actions'
+import {
+    serverURL
+} from '../serverurl'
 import Modal from "../components/Modal"
 import '../css/form.css';
 //pass state in reducer to props
@@ -52,17 +55,15 @@ export class Form extends Component{
     
     HandleUploadedFile = (event)=>{
 
-        this.setState({file: event.target.files[0]});
-        this.setState({filename: event.target.files[0].name});
+        let uploadedFile =  event.target.files[0];
+        let filename = uploadedFile.name;
+        this.setState({file: uploadedFile});
+        this.setState({filename: filename});
+        this.setState({filetype: filename.split('.').pop()})
         
     }
     
-    HandleFileType = (event)=>{
-        this.setState({filetype: event.target.value});
-       
-        
-    }
-    
+
     HandleTitle = (event)=>{
         this.setState({title: event.target.value});
        
@@ -86,22 +87,40 @@ export class Form extends Component{
     const {closeForm, SetMessage,OnRequestMarkers} = this.props;
         
    
-        
-    if((title ==='') || (description === '') || (lat === null) || (lng === null) || (file === null) || (filename === 'Upload a sound file (Max: 1GB)')){
-        SetMessage('error', '', 'Please fill out the submit form');
+    //If there is no marker's location => can't add marker    
+    if((lat === null) || (lng === null)){
+        SetMessage('error', '', 'Please specify marker\'s location');
         return
     } 
-    
+        
+    //If there is uploaded file
+    if(filename !== "Upload a sound file (Max: 1GB)"){
+    //Validate extension
     if (!(this.CheckExtension(filename))){
         SetMessage('error', '', 'Uploaded file is not a sound file');
         return
+    }
     }
 
        const formData = new FormData();
        const obj = this.state;
        Object.keys(obj).forEach(function(key) {
             
-            formData.append(key,obj[key]);
+            //Only add file's information if there is any
+               switch (key) {
+                case 'file':
+                    if (obj[key] !== null) formData.append(key, obj[key]);
+                    else  break;
+                    break;
+                case 'filename':
+                    if (obj[key] !== 'Upload a sound file (Max: 1GB)') formData.append(key, obj[key]);
+                    else  formData.append(key, 'none');
+                    break;
+                default:
+                    formData.append(key, obj[key]);
+                    break;
+            }
+           
           
            
         });
@@ -111,8 +130,10 @@ export class Form extends Component{
 //            console.log(pair[0]+ ', ' + pair[1]); 
 //        }
 
-      
-        fetch('http://localhost:3000/addmarker',{
+      const url = serverURL[0].url;
+        
+        //Add marker server query
+        fetch(url+ 'addmarker',{
             method: 'post',
             body:formData
             
@@ -129,12 +150,13 @@ export class Form extends Component{
             else SetMessage('error', 'Unable to add marker - please try again later', '');;
         })
         
-        closeForm();
+        closeForm(); 
         
        
         
         
     }
+    
     ResetState =() =>{
         this.setState({title:'', description:''});
         
@@ -147,6 +169,7 @@ export class Form extends Component{
         if ( /\.(ogg|wav|mp3|)$/i.test(filename) === false ) { return false; }
         return true;
 }
+    //Update lat and lng 
     componentDidUpdate(prevProps, prevState){
         if(prevProps.lat !== this.props.lat){
             
@@ -158,13 +181,14 @@ export class Form extends Component{
         }
     }
 
+//set lat and lng states according to global lat and lng
 componentDidMount(){
     if(this.props.lat!== "LAT" && this.props.lng !== "LNG"){
      this.setState({lat: this.props.lat});
      this.setState({lng: this.props.lng});
     }
 }
-    
+    //display form
     render(){
         const {lat,lng,visible}= this.props;
         const modalID = "myModal";
@@ -198,7 +222,7 @@ componentDidMount(){
             </div>
                
             </div>
-            <Modal as={"mediaModal"} handleUploadedFile ={this.HandleUploadedFile} inputFileName ={this.state.filename} handleFileType = {this.HandleFileType} modalID={modalID}></Modal>
+            <Modal as={"mediaModal"} handleUploadedFile ={this.HandleUploadedFile} inputFileName ={this.state.filename} modalID={modalID}></Modal>
             </div>
         )
     }

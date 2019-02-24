@@ -16,6 +16,7 @@ import {SetCurrentPosReducer,
 import * as serviceWorker from './serviceWorker';
       
 
+//Combined reducer
 
 const rootReducer = combineReducers({SetCurrentPosReducer,
                                      OnInfowinEventReducer,
@@ -24,7 +25,10 @@ const rootReducer = combineReducers({SetCurrentPosReducer,
                                      PassFileNameReducer,
                                     OnResetReducer,
                                     SetMessageReducer});
+
+//Global store
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+
 
 ReactDOM.render(<Provider store ={store}>
     <Container />

@@ -129,6 +129,7 @@ class Map extends Component {
         }
 
     }
+
     handleEvent(evtName){
         let timeout;
         const handlerName = evtName;

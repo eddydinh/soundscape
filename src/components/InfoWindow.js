@@ -6,23 +6,30 @@ import $ from 'jquery'
 import '../css/infoWindow.css'
 
 export default class InfoWindow extends Component{
-    
+
+    //No display function
     render(){
         return null;
     }
 
+    
     componentDidUpdate(prevProps,prevState){
         
-
+        
+        //Render new infowin on new map
         if (this.props.map!==prevProps.map){
             this.renderInfoWindow();
         }
         
+        
+        //render info content on open
         if(this.props.children.props!==prevProps.children.props){
              const {onOpen} = this.props;
             onOpen();
         }
 
+        
+        //Display window on visible = true and vice versa
         if ((this.props.visible!== prevProps.visible)||(this.props.marker!== prevProps.marker)){
 
             this.props.visible?
@@ -32,6 +39,8 @@ export default class InfoWindow extends Component{
         
        
     }
+    
+    //Construct google maps api infowin
     
     renderInfoWindow(){
         let {google,onClose}=this.props;
@@ -43,6 +52,7 @@ export default class InfoWindow extends Component{
    
     }
     
+
     openWindow(){
         const {onOpen} = this.props;
         onOpen();
@@ -52,7 +62,7 @@ export default class InfoWindow extends Component{
         this.infowindow.close();
     }
     
-    
+    //style window on dom ready
     styleWindow(){
         let iwOuter = $('.gm-style-iw');
         
@@ -79,41 +89,9 @@ export default class InfoWindow extends Component{
             'z-index': '1'
         });
 
-        // Moves the infowindow 45px down.
-        iwOuter.parent().parent().css({
-            top: '5px'
-        });
-
-        // Reference to the div that groups the close button elements.
-        let iwCloseBtn = iwOuter.next();
-
-        if ($(window).width() <= 700) {
-            
-            iwCloseBtn.css({
-                opacity: '1',
-                right: '10px',
-                top: '10px!important',
-                'border-radius': '13px',
-                'box-shadow': '-5px 7px 10px #1C2C35',
-                color: "#1C2C35"
-            });
 
 
-        } else {
-
-
-
-            // Apply the desired effect to the close button
-            iwCloseBtn.css({
-                opacity: '1',
-                right: '10px',
-                top: '5px',
-                'border-radius': '13px',
-                'box-shadow': '-5px 7px 10px #1C2C35',
-                color: "#1C2C35"
-            });
-
-        }
+  
     }
 }
 InfoWindow.propTypes = {

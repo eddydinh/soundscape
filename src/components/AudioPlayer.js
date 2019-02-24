@@ -1,20 +1,27 @@
 import React, {
     Component
 } from 'react'
+import {
+    serverURL
+} from '../serverurl'
 import '../css/audioplayer.css'
+
 export default class AudioPlayer extends Component{
     
     constructor(props){
+        const url = serverURL[0].url;
         super(props);
         this.state = {
             
             play: false,
-            url : "http://localhost:3000/bgAudio.mp3",
+            url : url+"bgAudio.mp3",
             
         
         }
-        this.audio = new Audio (this.state.url);
-        this.markerAudio = new Audio ();
+        
+        
+        this.audio = new Audio (this.state.url); //Background audio
+        this.markerAudio = new Audio (); //Marker's audio
         this.togglePlay = this.togglePlay.bind(this);
         this.audio.autoplay =true;
         this.audio.loop =true;
@@ -23,30 +30,46 @@ export default class AudioPlayer extends Component{
     
     componentDidUpdate(prevProps,prevState){
         if(prevProps.markerAudio !== this.props.markerAudio){
-            this.TurnOnMarkerAudio(this.props.markerAudio);
+            this.TurnOnMarkerAudio(this.props.markerAudio); //if marker's audio value changed
         }
     }
     
     //Turn on audio for marker in close proximity
     TurnOnMarkerAudio(filename){
        const {FadeInVolume, FadeOutVolume} = this;
-       
+       const url = serverURL[0].url;
+        
+        //if there is media file attached to marker
+        if(filename!=='none'){
+            
         FadeOutVolume(()=>{
-             this.audio.pause()
-        const src = `http://localhost:3000/${filename}`
-        this.markerAudio.src = src;
-        this.markerAudio.volume = 0;
-        this.markerAudio.play();
-        FadeInVolume(()=>{return},50,0.01,1,"marker");
+            
+        this.audio.pause() // pause background audio
+            
+        const src = `${url}${filename}`
+        
+        this.markerAudio.src = src; //Set marker's audio's source
+        this.markerAudio.volume = 0;// Initial marker's audio volume
+        this.markerAudio.play(); //Play marker's audio
+            
+        FadeInVolume(()=>{return},50,0.01,1,"marker"); //Gradually increase marker's audio volume
+            
+            
+        //When marker's audio ends
         this.markerAudio.onended = () => {
             this.audio.play()
-            FadeInVolume(()=>{return},10, 0.01, 1,"main")
+            FadeInVolume(()=>{return},10, 0.01, 1,"main") //Graudually increase background audio volume
             
         }
-        },10, 0.01,"main" )
+        },10, 0.01,"main" ) //Fade Out Volume of background
+            
+        }
        
       
     }
+    
+    
+
     
    FadeOutVolume =(callback,speed,factor,_audio) =>{
        const {audio,markerAudio} = this;
@@ -83,12 +106,14 @@ export default class AudioPlayer extends Component{
     }
    }
 
+   //Display mute button
     render(){
-        return (  <div className="audioWrapper">   
+        return (<div className="audioWrapper">   
             <button onClick={this.togglePlay}>{this.state.play ? <i className="fas fa-volume-off"></i>: <i className="fas fa-volume-up"></i> }</button>
            </div>)
     }
     
+    //Mute toggle function
     togglePlay(){
         this.setState({play:!this.state.play});
         if (this.state.play){

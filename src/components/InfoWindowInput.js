@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import '../css/infoWindow.css'
 export default class InfoWindowInput extends Component{
     
+    //display infowin input
     render(){
         const {value,visibility,onChange,inputType,name,addClass} = this.props;
      

@@ -11,6 +11,10 @@ import {
         ON_DISPLAY_EDIT
 } from './constants.js'
 
+import {
+    serverURL
+} from './serverurl'
+
 export const SetCurrentLocation = (location) => ({
     type: CHANGE_CURRENT_LOCATION,
     payload: location
@@ -60,9 +64,10 @@ export const SetMessage = (type,success,error) => ({
 
 export const requestMarkers = ()=>(dispatch) => {
     
+    const url = serverURL[0].url;
     
     dispatch({type: REQUEST_MARKERS_PENDING});
-    fetch('http://localhost:3000/database')
+    fetch(url+'database')
         .then(response => response.json())
         .then(data => dispatch({type:REQUEST_MARKERS_SUCCESS, payload:data}))
         .catch(err=>dispatch({type:REQUEST_MARKERS_ERROR, payload:err}))

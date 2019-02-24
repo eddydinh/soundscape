@@ -38,8 +38,11 @@ export class Navbar extends Component {
         }
         this.btnImg = require('../img/addPinBtn.png');
     }
+    
+    
     render() {
 
+        //navbar styles
         const navStyles = {
             width: '100%',
             height: '8%',
@@ -74,6 +77,8 @@ export class Navbar extends Component {
 
 
     }
+    
+    //Add pin button onclick event
     OnClickEvent = ()=> {
         this.setState({
             clicked: !this.state.clicked

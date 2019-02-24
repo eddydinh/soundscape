@@ -20,6 +20,8 @@ export default class Marker extends Component{
         let pos = position||mapCenter;
         position= new google.maps.LatLng(pos.lat,pos.lng);
   
+        
+        // create new marker
         if(this.marker == null){
         
             const pref = {
@@ -30,16 +32,23 @@ export default class Marker extends Component{
                
             };
             
+            //new markers created by google maps api
             this.marker = new google.maps.Marker(pref);
             this.marker.setValues({id:id});
+            
+            //player + marker infowin icon
             if(icon!=null) {this.marker.setIcon(icon);}
+            
+            //guiding marker icon
             else{
                   const usericon = require('../img/AddPinIcon.png')
                   icon = {url:usericon,scaledSize: new this.props.google.maps.Size(45, 50)};
                   this.marker.setIcon(icon);
             }
-            
+            //on marker first instantiated.
             if(onInstantiate!=null) onInstantiate(infowincontent,this.marker,true,undefined);
+            
+            //marker infowindow drag event
             else{
             this.marker.setDraggable(true);
                    google.maps.event.addListener(this.marker, 'dragend', function(event) {
@@ -50,6 +59,8 @@ export default class Marker extends Component{
 
                     });
             }
+            
+            //marker infowindow onclick event
             if(onClick!=null){   
                 
                 this.marker.addListener('click', function() {
@@ -59,14 +70,14 @@ export default class Marker extends Component{
             }
         }else{
             
-            this.marker.setPosition(position);
+            this.marker.setPosition(position); // reposition to its new position
             
         }
         
         
     }
 
-
+//no render function
     render(){
         return null;
     }

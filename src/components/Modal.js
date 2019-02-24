@@ -8,7 +8,9 @@ import Button from './Button'
 export default class Modal extends Component{
 
     render(){
-        const {as, modalID,value,onYesClick} = this.props;   
+        const {as, modalID,value,onYesClick} = this.props;  
+        
+        //add media modal
         if(as==="mediaModal"){
             return(
                 
@@ -33,14 +35,8 @@ export default class Modal extends Component{
                     </div>
                        
                        
-                        <label>Media type:    </label>
-                    <select name="mediaSelection" id="mediaSelection" onChange={this.props.handleFileType}>
-                        <option value="wav">wav</option>
-                        <option value="mp3">mp3</option>
-                        <option value="ogg">ogg</option>
-                     
-                        
-                    </select>
+                       
+            
 
                 </div>
                 <div className="modal-footer">
@@ -54,6 +50,7 @@ export default class Modal extends Component{
             )
         }
         
+        //common modal
         else if (as==="normalModal"){
            return (
                 
