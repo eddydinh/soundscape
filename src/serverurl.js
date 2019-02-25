@@ -1,4 +1,4 @@
 export const serverURL = [
 
-    {url: 'http://localhost:3000/'}
+    {url: 'YOUR SERVER DOMAIN HERE'}
 ]

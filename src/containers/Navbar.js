@@ -55,7 +55,7 @@ export class Navbar extends Component {
         const {clicked} = this.state;
         
         
-      
+      if(!this.props.noForm){
    
       return (<div width={'100%'} height={'100%'}> <div style = {navStyles}> 
             <Button iWidth={'35px'} iHeight={'45px'} as= {"a"} imageSrc = {this.btnImg} onClick = {this.OnClickEvent}  visible={true}/> 
@@ -73,13 +73,30 @@ export class Navbar extends Component {
   
             
             </div>)
-        
+      }else{
+          
+                return (<div width={'100%'} height={'100%'}> <div style = {navStyles}> 
+            <Button iWidth={'35px'} iHeight={'45px'} as= {"a"} imageSrc = {this.btnImg} visible={true}/> 
+            
+            <AudioPlayer markerAudio={this.props.filename}></AudioPlayer>
+            
+            <Button iWidth={'35px'} iHeight={'45px'} addClass={"resetBtn"} as= {"a"} imageSrc = {require('../img/FindMeIcon.png')} onClick = {this.OnReset} visible={true}/> 
+            
+            </div>
+   
+  
+            
+            </div>)
+      }
 
 
     }
     
     //Add pin button onclick event
     OnClickEvent = ()=> {
+        
+        
+        
         this.setState({
             clicked: !this.state.clicked
         });
@@ -93,6 +110,7 @@ export class Navbar extends Component {
                 this.btnImg = require('../img/addPinBtn.png');
            
         }
+        
     }
     
     OnReset = () =>{

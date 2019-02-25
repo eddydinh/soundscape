@@ -126,7 +126,7 @@ export class Container extends Component {
         return ( <div style = {
                 style
             } >
-            <Navbar/>
+            <Navbar noForm = {this.props.noForm}/>
 
             <Message onClose = {
                 this.ClosePopUp
