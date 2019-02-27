@@ -1,4 +1,4 @@
 export const serverURL = [
 
-    {url: ''}
+    {url: '<SERVER URL HERE>'}
 ]
