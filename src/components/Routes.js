@@ -1,20 +1,21 @@
 import React from 'react'
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route,Link} from 'react-router-dom'
 import Container from '../containers/Container'
 
 const Routes = () =>{
      return (
     <main>
      <Switch>
+        
        <Route exact path='/' render={(routeProps) => (
                 <Container {...routeProps} noForm={true} />)}>    
         </Route>  
         
-        <Route path='/admin' component={Container}>    
+        <Route exact path='/admin' component={Container}>    
         </Route> 
         
           
-         <Route  path='*' render={(routeProps) => (
+         <Route exact path='*' render={(routeProps) => (
                 <Container {...routeProps} noForm={true} />)}>    
         </Route>  
      </Switch>

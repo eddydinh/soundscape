@@ -13,7 +13,8 @@ import {SetCurrentPosReducer,
         OnRequestMarkesReducer,
         PassFileNameReducer,
        OnResetReducer,
-       SetMessageReducer} from './reducers';
+       SetMessageReducer,
+       LoadingRequestReducer} from './reducers';
 
 
 import * as serviceWorker from './serviceWorker';
@@ -27,7 +28,8 @@ const rootReducer = combineReducers({SetCurrentPosReducer,
                                      OnRequestMarkesReducer,
                                      PassFileNameReducer,
                                     OnResetReducer,
-                                    SetMessageReducer});
+                                    SetMessageReducer,
+                                    LoadingRequestReducer});
 
 //Global store
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));

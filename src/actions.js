@@ -8,7 +8,8 @@ import {
         PASS_FILE_NAME,
         ON_RESET,
         SET_MESSAGE,
-        ON_DISPLAY_EDIT
+        ON_DISPLAY_EDIT,
+        ON_LOADING_REQUEST
 } from './constants.js'
 
 import {
@@ -52,7 +53,10 @@ export const OnDisplayEdit = (visible) => ({
     
 })
 
-
+export const DisplayLoader = (visible) =>({
+    type: ON_LOADING_REQUEST,
+    payload1:visible
+})
 export const SetMessage = (type,success,error) => ({
     type: SET_MESSAGE,
     payload1: type,

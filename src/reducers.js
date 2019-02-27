@@ -7,7 +7,8 @@ import {CHANGE_CURRENT_LOCATION,
         PASS_FILE_NAME,
         ON_RESET,
         SET_MESSAGE,
-        ON_DISPLAY_EDIT
+        ON_DISPLAY_EDIT,
+        ON_LOADING_REQUEST
        } from './constants.js'
 
 const initialStateUserPosition = {
@@ -47,6 +48,10 @@ const initialMessage = {
     messageType:'none',
     messageSuccess: 'Congratulations! Marker was successfully added!',
     messageError:'Please fill out the submit form'
+}
+
+const initialLoaderVisibility ={
+    loaderVisible: false
 }
 
 
@@ -121,4 +126,15 @@ export const SetMessageReducer= (state=initialMessage, action={}) =>{
             return state;
     }
 }
+
+
+export const LoadingRequestReducer= (state=initialLoaderVisibility, action={}) =>{
+    switch(action.type){
+        case ON_LOADING_REQUEST:
+            return Object.assign({},state,{loaderVisible:action.payload1});
+        default:
+            return state;
+    }
+}
+
 

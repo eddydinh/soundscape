@@ -10,7 +10,8 @@ export default class InfoWindowInput extends Component{
         const {value,visibility,onChange,inputType,name,addClass} = this.props;
      
            let styles={ display:'block'};
-        if(visibility!==null){
+        
+            if(visibility!==null){
            
            
            

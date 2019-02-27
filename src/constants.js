@@ -8,3 +8,4 @@ export const PASS_FILE_NAME = 'PASS_FILE_NAME';
 export const ON_RESET = 'ON_RESET';
 export const SET_MESSAGE = 'SET_MESSAGE';
 export const ON_DISPLAY_EDIT = 'ON_DISPLAY_EDIT';
+export const ON_LOADING_REQUEST = 'ON_LOADING_REQUEST';

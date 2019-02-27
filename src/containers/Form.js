@@ -9,12 +9,14 @@ import {
 import {
     RecordLatLng,
     requestMarkers,
-    SetMessage
+    SetMessage,
+    DisplayLoader
 } from '../actions'
 import {
     serverURL
 } from '../serverurl'
 import Modal from "../components/Modal"
+
 import '../css/form.css';
 //pass state in reducer to props
 const mapStateToProps = state => {
@@ -32,8 +34,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         OnAutoButtonClick: (location) => dispatch(RecordLatLng(location)),
         OnRequestMarkers: () => dispatch(requestMarkers()),
-        SetMessage: (type, success, error) => dispatch(SetMessage(type, success, error))
-       
+        SetMessage: (type, success, error) => dispatch(SetMessage(type, success, error)),
+        DisplayLoader: (visible) =>dispatch(DisplayLoader(visible)),     
     }
 
 }
@@ -84,7 +86,9 @@ export class Form extends Component{
     
     HandleSubmit = () =>{
     const{title,description,lat,lng,file,filename}= this.state;
-    const {closeForm, SetMessage,OnRequestMarkers} = this.props;
+    const {closeForm, SetMessage,OnRequestMarkers,DisplayLoader} = this.props;
+        
+    
         
    
     //If there is no marker's location => can't add marker    
@@ -101,6 +105,8 @@ export class Form extends Component{
         return
     }
     }
+        
+        DisplayLoader(true);
 
        const formData = new FormData();
        const obj = this.state;
@@ -141,9 +147,11 @@ export class Form extends Component{
         .then(response => response.json())
         .then((data) => {
            if(data === 'success'){
+               DisplayLoader(false);
                console.log(data);
                OnRequestMarkers();
                this.ResetState();
+               
                SetMessage('success', 'Congratulations! You successfully added a marker!', '');
                
             }

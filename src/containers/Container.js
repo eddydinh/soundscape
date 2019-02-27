@@ -17,6 +17,8 @@ import Modal from "../components/Modal"
 import InfoWindowInput from "../components/InfoWindowInput"
 import InfoWindowText from "../components/InfoWindowText"
 import InfoWindowEx from '../components/InfoWindowEx'
+import LoadingScreen from "../components/LoadingScreen"
+
 
 import {
     connect
@@ -27,7 +29,8 @@ import {
     requestMarkers,
     PassFileName,
     SetMessage,
-    OnDisplayEdit
+    OnDisplayEdit,
+    DisplayLoader
 } from '../actions'
 import Navbar from './Navbar'
 //pass state in reducer to props
@@ -43,7 +46,8 @@ const mapStateToProps = state => {
         currentLocation: state.SetCurrentPosReducer.currentLocation,
         messageType: state.SetMessageReducer.messageType,
         messageSuccess: state.SetMessageReducer.messageSuccess,
-        messageError: state.SetMessageReducer.messageError
+        messageError: state.SetMessageReducer.messageError,
+        loaderVisible: state.LoadingRequestReducer.loaderVisible,
 
 
     }
@@ -57,7 +61,8 @@ const mapDispatchToProps = (dispatch) => {
         OnRequestMarkers: () => dispatch(requestMarkers()),
         PlayMarkerAudio: (filename) => dispatch(PassFileName(filename)),
         SetMessage: (type, success, error) => dispatch(SetMessage(type, success, error)),
-        OnDisplayEdit: (visible) => dispatch(OnDisplayEdit(visible))
+        OnDisplayEdit: (visible) => dispatch(OnDisplayEdit(visible)),
+        DisplayLoader: (visible) =>dispatch(DisplayLoader(visible)),        
     }
 
 }
@@ -83,6 +88,8 @@ export class Container extends Component {
 
         //Request markers from database
         this.props.OnRequestMarkers();
+        
+       
 
     }
 
@@ -123,9 +130,15 @@ export class Container extends Component {
         }
 
 
-        return ( <div style = {
+        return ( 
+            
+            
+            
+            <div style = {
                 style
             } >
+            
+            <LoadingScreen visible={this.props.loaderVisible}/>
             <Navbar noForm = {this.props.noForm}/>
 
             <Message onClose = {
@@ -530,13 +543,14 @@ export class Container extends Component {
         const {
             OnRequestMarkers,
             SetMessage,
-            OnInfoWindowEvent
+            OnInfoWindowEvent,
+            DisplayLoader
         } = this.props;
         const url = serverURL[0].url;
         const formData = new FormData();
         formData.append("id", this.props.activeMarker.get("id"));
 
-                    
+        DisplayLoader(true);           
         //delete post request
         fetch(url+'deletemarker', {
                 method: 'post',
@@ -547,6 +561,7 @@ export class Container extends Component {
             .then((data) => {
                 if (data === 'delete success') {
                     this.props.activeMarker.setMap(null);
+                    DisplayLoader(false);    
                     console.log(data);
                     OnInfoWindowEvent({}, null, false, false);
                     OnRequestMarkers();
@@ -562,12 +577,13 @@ export class Container extends Component {
         const {
             SetMessage,
             OnRequestMarkers,
-            OnDisplayEdit
+            OnDisplayEdit,DisplayLoader
         } = this.props
         if (this.state.filename !== 'Upload a sound file (Max: 1GB)' && !(this.CheckExtension(this.state.filename))) {
             SetMessage('error', '', 'Uploaded file is not a sound file');
             return
         }
+        DisplayLoader(true);
         const formData = new FormData();
         const obj = this.state;
         formData.append("id", this.props.activeMarker.get("id"));
@@ -617,6 +633,7 @@ export class Container extends Component {
             .then(response => response.json())
             .then((data) => {
                 if (data === 'edit success') {
+                    DisplayLoader(false);
                     console.log(data);
                     OnDisplayEdit(true);
                     OnRequestMarkers();
@@ -675,6 +692,7 @@ export class Container extends Component {
     rad = (x) => {
         return x * Math.PI / 180;
     };
+
 
     //Function to calculate distance between two points on the map
     getDistance = (p1, p2) => {

@@ -1,5 +1,5 @@
 export const ApiKey = [
 
-    {key: 'YOUR API HERE'}
+    {key: 'AIzaSyCOXJ5ajmFH5f0bAYueT1OSOxGFAYSNZF8'}
 ]
 
