@@ -7,19 +7,20 @@ const Routes = () =>{
     <main>
      <Switch>
         
-       <Route exact path='/' render={(routeProps) => (
+       <Route exact path='/kvr' render={(routeProps) => (
                 <Container {...routeProps} noForm={true} />)}>    
         </Route>  
         
-        <Route exact path='/admin' component={Container}>    
+        <Route exact path='/kvr/admin' component={Container}>    
         </Route> 
         
           
-         <Route exact path='*' render={(routeProps) => (
-                <Container {...routeProps} noForm={true} />)}>    
-        </Route>  
+        
      </Switch>
     </main>
   );
 }
 export default Routes;
+// <Route exact path='*'render={(routeProps) => (
+//                <Container {...routeProps} noForm={true} />)}>     
+        //</Route> 
