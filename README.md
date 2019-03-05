@@ -1,44 +1,86 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Set up Google Maps API:**
 
-## Available Scripts
+- **Step 1:** Open **src** -> **containers** -> **MapData** -> *ApiKey.js*.
 
-In the project directory, you can run:
+- **Step 2:** Add your API: 
+```javascript
+    export const ApiKey = [
 
-### `npm start`
+    {key: '<YOUR API KEY HERE>'}
+]
+```
+    
+_On how to get API key:_
+https://developers.google.com/maps/documentation/javascript/get-api-key
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Configure Server URL**
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Step 1:** Open **src** *serverurl.js*.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+- **Step 2:** Add the domain on which you host soundscapeNodeServer: 
+```javascript
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+export const serverURL = [
 
-### `npm run eject`
+    {url: 'https://yourserverdomain.com/projectfolder'}
+]
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**How to add pin as an admin user:**
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+To add pin you only need to specify **LAT**, **LON** of the pin, other information is optional and can be added through editing (refer to *How to edit pin as an admin user*)
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+*ON DESKTOP:*
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Step 1**: Go to *https://yourserverdomain.com/projectfolder/admin*.
+
+- **Step 2**: Click on the <img src="./img/addPinBtn.png" alt="middle icon" width="200"/> of the top navigation bar.
+
+- **Step 3:**: Click on the map where you want to add pin or click **AUTO** to add a pin at your current position.
+
+- **Step 4:** After all required information has been specified, click **ADD PIN** to complete the process.
+
+
+
+**How to edit pin as an admin user:**
+
+*Edit position:*
+
+- **Step 1**: Go to *https://yourserverdomain.com/projectfolder/admin*.
+
+- **Step 2**: Drag the pin to the new position.
+
+- **Step 3:**: An info window about the pin should open with **SAVE** enabled (if not, click on the <img src="./img/EditPinSanstext.png" alt="Edit Icon" width="200"/> to enable **SAVE**).
+
+- **Step 4:** Click **SAVE**
+
+
+*Edit other information:*
+
+- **Step 1**: Go to *https://yourserverdomain.com/projectfolder/admin*.
+
+- **Step 2**: Click on the pin to open the info window.
+
+- **Step 3:**: Click on the edit icon. Three pencils will appear. Click on each of them to edit Media, Title, Description respective.
+
+- **Step 4:** After new inputs have been recorded, click **SAVE**
+
+
+
+
+**How to delete pin as an admin user:**
+
+- **Step 1**: Go to *https://yourserverdomain.com/projectfolder/admin*.
+
+- **Step 2**: Click on the pin to open the info window.
+
+- **Step 3:**: Click on the edit icon to enable **DELTE**
+
+- **Step 4:** Click **DELETE**
