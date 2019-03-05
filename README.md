@@ -19,7 +19,7 @@ https://developers.google.com/maps/documentation/javascript/get-api-key
 **Configure Server URL**
 
 
-- **Step 1:** Open **src** *serverurl.js*.
+- **Step 1:** Open **src** -> *serverurl.js*.
 
 - **Step 2:** Add the domain on which you host soundscapeNodeServer: 
 ```javascript
