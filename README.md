@@ -52,7 +52,7 @@ To add pin you only need to specify **LAT**, **LON** of the pin, other informati
 
 - **Step 1**: Go to *https://projectdomain.com/projectbuildfolder/admin*. (domain on which you host this project build folder + admin)
 
-- **Step 2**: Click on the <img src="./src/img/addPinBtn.png" alt="middle icon" width="50"/>on the top navigation bar.
+- **Step 2**: Click on <img src="./src/img/addPinBtn.png" alt="middle icon" width="50"/>on the top navigation bar.
 
 - **Step 3:**: Click on the map where you want to add pin or click **AUTO** to add a pin at your current position.
 
@@ -68,7 +68,7 @@ To add pin you only need to specify **LAT**, **LON** of the pin, other informati
 
 - **Step 2**: Drag the pin to the new position.
 
-- **Step 3:**: An info window about the pin should open with **SAVE** enabled (if not, click on the <img src="./src/img/EditPinSanstext.png" alt="Edit Icon" width="50"/> to enable **SAVE**).
+- **Step 3:**: An info window about the pin should open with **SAVE** enabled (if not, click on <img src="./src/img/EditPinSanstext.png" alt="Edit Icon" width="50"/> to enable **SAVE**).
 
 - **Step 4:** Click **SAVE**
 
