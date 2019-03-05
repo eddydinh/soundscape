@@ -37,8 +37,6 @@ export const serverURL = [
 To add pin you only need to specify **LAT**, **LON** of the pin, other information is optional and can be added through editing (refer to *How to edit pin as an admin user*)
 
 
-*ON DESKTOP:*
-
 - **Step 1**: Go to *https://yourserverdomain.com/projectfolder/admin*.
 
 - **Step 2**: Click on the <img src="./img/addPinBtn.png" alt="middle icon" width="200"/> of the top navigation bar.
