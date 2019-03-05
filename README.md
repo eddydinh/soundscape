@@ -32,12 +32,25 @@ export const serverURL = [
 
 
 
+**Build the project**
+
+
+- **Step 1:** Open *Command Prompt* if you are on **Windows** or *Terminal* if you are on **Mac** .
+
+- **Step 2:** Navigate to project folder
+
+- **Step 3:** Type **npm run-script build**
+
+- **Step 4:** A project build folder will be created. You can ftp this folder to the server on which you plan to host the project.
+
+
+
 **How to add pin as an admin user:**
 
 To add pin you only need to specify **LAT**, **LON** of the pin, other information is optional and can be added through editing (refer to *How to edit pin as an admin user*)
 
 
-- **Step 1**: Go to *https://yourserverdomain.com/projectfolder/admin*.
+- **Step 1**: Go to *https://projectdomain.com/projectbuildfolder/admin*. (domain on which you host this project build folder + admin)
 
 - **Step 2**: Click on the <img src="./img/addPinBtn.png" alt="middle icon" width="200"/> of the top navigation bar.
 
@@ -51,7 +64,7 @@ To add pin you only need to specify **LAT**, **LON** of the pin, other informati
 
 *Edit position:*
 
-- **Step 1**: Go to *https://yourserverdomain.com/projectfolder/admin*.
+- **Step 1**: Go to *https://projectdomain.com/projectbuildfolder/admin*. (domain on which you host this project build folder + admin)
 
 - **Step 2**: Drag the pin to the new position.
 
@@ -62,7 +75,7 @@ To add pin you only need to specify **LAT**, **LON** of the pin, other informati
 
 *Edit other information:*
 
-- **Step 1**: Go to *https://yourserverdomain.com/projectfolder/admin*.
+- **Step 1**: Go to *https://projectdomain.com/projectbuildfolder/admin*. (domain on which you host this project build folder + admin)
 
 - **Step 2**: Click on the pin to open the info window.
 
@@ -75,7 +88,7 @@ To add pin you only need to specify **LAT**, **LON** of the pin, other informati
 
 **How to delete pin as an admin user:**
 
-- **Step 1**: Go to *https://yourserverdomain.com/projectfolder/admin*.
+- **Step 1**: Go to *https://projectdomain.com/projectbuildfolder/admin*. (domain on which you host this project build folder + admin)
 
 - **Step 2**: Click on the pin to open the info window.
 
